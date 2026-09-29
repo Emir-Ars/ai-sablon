@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(.venv\\Scripts\\python.exe -m pytest *)",
+      "PowerShell(.venv/Scripts/python.exe -m pytest *)",
+      "PowerShell(.venv\\Scripts\\python.exe -m black --check *)",
+      "PowerShell(.venv/Scripts/python.exe -m black --check *)",
+      "PowerShell(.venv\\Scripts\\python.exe -m flake8 *)",
+      "PowerShell(.venv/Scripts/python.exe -m flake8 *)"
+    ]
+  }
+}

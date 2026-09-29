@@ -1,0 +1,58 @@
+{
+  "attribution": {
+    "commit": false,
+    "pr": false
+  },
+  "autoMemoryEnabled": false,
+  "permissions": {
+    "allow": [
+      "PowerShell(git status *)",
+      "PowerShell(git log *)",
+      "PowerShell(git diff *)",
+      "PowerShell(git show *)",
+      "PowerShell(git rev-parse *)",
+      "PowerShell(git branch --show-current)",
+      "PowerShell(Get-Date *)",
+      "PowerShell(powershell -NoProfile -ExecutionPolicy Bypass -File .ai/durum.ps1)",
+      "PowerShell(powershell -NoProfile -ExecutionPolicy Bypass -File .ai/durum.ps1 *)"
+    ],
+    "ask": [
+      "PowerShell(git push *)",
+      "Bash(git push *)"
+    ],
+    "deny": [
+      "PowerShell(git add .)",
+      "PowerShell(git add -A)",
+      "PowerShell(git add -A *)",
+      "PowerShell(git add --all)",
+      "PowerShell(git add --all *)",
+      "Bash(git add .)",
+      "Bash(git add -A)",
+      "Bash(git add -A *)",
+      "Bash(git add --all)",
+      "Bash(git add --all *)"
+    ]
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup|resume|clear",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-File",
+              "${CLAUDE_PROJECT_DIR}/.ai/durum.ps1",
+              "-Kanca"
+            ],
+            "timeout": 20
+          }
+        ]
+      }
+    ]
+  }
+}
