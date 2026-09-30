@@ -16,7 +16,7 @@ tabloyu da güncelle.
 | Kurallar | `AGENTS.md` | Git | Bu dosya; projeye özel kalıcı kurallar. |
 | Plan | `PLAN.md` | Git | Amaç, aşamalar, şu anki adımlar, açık kararlar, bilinen sınırlar. Kısa tutulur. |
 | Kararlar | `KARARLAR.md` | Git | Kararların gerekçeli kaydı; yalnız eklenir. |
-| Günlük | `GUNLUK.md` | Git | Oturum kayıtları; en yeni sonda. |
+| Günlük | `GUNLUK.md` | Git | Biten adım ve kararların kısa kaydı; en yeni sonda. Her oturumda değil. |
 | Devir notu | `DEVAM.md` | Git dışı | "Şu an" durumu; her seferinde baştan yazılır. |
 | Teknik belge | `docs/teknik.md` | Git | Kodun işleyişi. Yoksa kendiliğinden oluşturma; gerekirse kullanıcıya sor. |
 | Araştırma | `docs/arastirma/` | Git | Proje başında toplanan araştırma ve kaynak notları. Klasör ilk dosyayla oluşur. |
@@ -48,16 +48,19 @@ ilk cevabında kullanıcıya söyle.
 
 Amaç: sonraki aşamanın işi, biten aşamanın kodunu bozmasın.
 
-- **Biten aşamanın kodu donmuştur.** Değiştirmek gerekirse (hata, zorunlu uyum) önce
-  kullanıcıya sor. Sade dille sor: ne oldu, neyi etkiler, ne öneriyorsun; kullanıcının
-  "evet" ya da "hayır" demesi yetsin, teknik ayrıntı bilmesi gerekmesin. Onay gelmeden
-  değiştirme.
+- **Donmuş olan, biten aşamanın dışa açık arayüzü ve testleridir.** Arayüz: başka
+  modüllerin kullandığı fonksiyon ve sınıfların adı, parametreleri, dönüşü. Testler:
+  o aşamanın testleri; testi geçirmek için değiştirilmez.
+- Biten aşamanın **içinde** hata düzeltme ya da iç düzenleme (refactor) serbesttir,
+  yeter ki arayüz aynı kalsın ve bütün testler yeşil olsun. Yaptıktan sonra
+  kullanıcıya sade dille bildir (ne değişti, neden); onay beklemen gerekmez.
+- **Arayüz değişecekse** önce kullanıcıya sor. Sade dille sor: ne oldu, neyi etkiler,
+  ne öneriyorsun; kullanıcının "evet" ya da "hayır" demesi yetsin, teknik ayrıntı
+  bilmesi gerekmesin. Önce onu çağıran her yeri ara; mümkünse eskisini bozmadan
+  genişlet (yeni parametre varsayılanlı olsun). Onaylanırsa Kararlar'a yaz.
 - Yeni aşama önceki aşamanın kodunu yalnız dışa açık fonksiyonları ve sınıfları
   üzerinden kullanır; iç ayrıntılarına (alt çizgili adlar, iç değişkenler) uzanmaz.
-- Yeni işin kodu mümkünse yeni modüle yazılır; eski modüle ekleme gerekirse söyle.
-- Dışa açık bir fonksiyonun imzası (ad, parametreler, dönüş) değişecekse önce onu
-  çağıran her yeri ara ve listele, kullanıcıya söyle; mümkünse eskisini bozmadan
-  genişlet (yeni parametre varsayılanlı olsun).
+- Yeni işin kodu mümkünse yeni modüle yazılır.
 - Aşama kapanışı: bütün testler geçer, `PLAN.md`'de aşama "Bitti" olur ve Etiket
   sütunu doldurulur; kullanıcıya commit ve `git tag asama-N` önerilir (onayla).
   Biten aşamadan beri ne değiştiği: `git diff --stat asama-N`.
@@ -72,6 +75,9 @@ Genel Git kuralları geçerlidir. Bu projede ek olarak:
 
 - `DEVAM.md`, `CLAUDE.md`, `CLAUDE.local.md` ve `.claude/settings.local.json`
   commit edilmez (`.gitignore`'dadır).
+- `.githooks/commit-msg` kancası, mesajında yapay zekâ imzası olan commit'i reddeder.
+  Etkin olması için kullanıcı Git'i kurduktan sonra bir kez
+  `git config core.hooksPath .githooks` çalıştırır. `--no-verify` ile kancayı atlama.
 
 <!-- EKLER -->
 

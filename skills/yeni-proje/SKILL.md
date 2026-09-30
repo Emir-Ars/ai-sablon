@@ -48,7 +48,8 @@ Bu skill yalnız elle çağrılır. Çalışma klasörü hedef projedir.
      araç adı "Claude Code" ya da "Codex" (model adı değil).
 8. **Doğrula.** Hedef klasörde:
    - Ağaç doğru mu: `AGENTS.md`, `CLAUDE.md`, `PLAN.md`, `KARARLAR.md`, `GUNLUK.md`,
-     `DEVAM.md`, `.gitignore`, `.claude\settings.json`, `.ai\durum.ps1`.
+     `DEVAM.md`, `.gitignore`, `.gitattributes`, `.claude\settings.json`,
+     `.ai\durum.ps1`, `.githooks\commit-msg`.
    - Kalan yer tutucu yok mu: `Select-String -Path (Get-ChildItem -Recurse -File -Force
      -Exclude *.ps1 | ForEach-Object FullName) -Pattern '\{\{'` boş dönmeli.
    - `.claude\settings.json` `ConvertFrom-Json` ile ayrışıyor mu.
@@ -57,8 +58,10 @@ Bu skill yalnız elle çağrılır. Çalışma klasörü hedef projedir.
    - `powershell -NoProfile -ExecutionPolicy Bypass -File .ai/durum.ps1` uyarısız
      çalışıyor mu.
 9. **Bitir.** Sonuçları söyle ve dur. Git'e dokunma: `git init`, commit ve push'u
-   kullanıcı kendisi yönetir. Kullanıcıya söyle: yeni oturum aç, güven penceresini
-   kabul et; Codex'te `$basla`.
+   kullanıcı kendisi yönetir. Kullanıcıya şunları söyle:
+   - Git'i kurunca bir kez `git config core.hooksPath .githooks` çalıştırsın (commit
+     mesajında yapay zekâ imzası varsa kanca commit'i reddeder).
+   - Yeni oturum açsın, güven penceresini kabul etsin; Codex'te `$basla`.
 
 ## Bitti ölçütü
 

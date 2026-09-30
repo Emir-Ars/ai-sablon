@@ -1,0 +1,2 @@
+# Git kancalari sh betigidir; Windows'ta CRLF'e cevrilirse calismaz.
+.githooks/* text eol=lf

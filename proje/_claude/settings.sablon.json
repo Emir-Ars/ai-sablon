@@ -19,6 +19,8 @@
     "ask": [
       "PowerShell(git push *)",
       "Bash(git push *)",
+      "PowerShell(git -C * push*)",
+      "Bash(git -C * push*)",
       "PowerShell(git reset --hard*)",
       "Bash(git reset --hard*)",
       "PowerShell(git clean*)",
@@ -30,6 +32,8 @@
     ],
     "deny": [
       "Read(./.env)",
+      "PowerShell(* --no-verify*)",
+      "Bash(* --no-verify*)",
       "PowerShell(git push --force*)",
       "PowerShell(git push -f*)",
       "PowerShell(git push * --force*)",

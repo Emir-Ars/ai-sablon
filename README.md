@@ -28,6 +28,9 @@ ai-sablon\
 ├─ AGENTS.md               bu depoda çalışan araca talimat (.sablon dosyaları talimat değildir)
 ├─ ARAC_GECISI.md          Claude ↔ Codex geçiş rehberi (kullanıcı için tek kopya)
 ├─ .gitignore              yedek dosyaları ve yerel ayar
+├─ .gitattributes          şablondaki Git kancası LF kalsın
+├─ docs\
+│  └─ arastirma\           şablonun bağımsız değerlendirme raporları (3 yapay zekâ, 30.09.2026)
 ├─ genel\
 │  └─ KURALLAR.md          kişisel kuralların TEK kaynağı
 ├─ proje\                  çekirdek proje şablonu (adlar hedefte dönüşür)
@@ -38,8 +41,11 @@ ai-sablon\
 │  ├─ GUNLUK.sablon.md
 │  ├─ DEVAM.sablon.md
 │  ├─ gitignore.sablon
-│  └─ _claude\
-│     └─ settings.sablon.json
+│  ├─ gitattributes.sablon
+│  ├─ _claude\
+│  │  └─ settings.sablon.json
+│  └─ _githooks\
+│     └─ commit-msg
 ├─ ekler\                  isteğe bağlı paketler
 │  └─ python-windows\
 │     ├─ EK.md
@@ -70,9 +76,11 @@ ai-sablon\
    └─ yeni-proje.ps1
 ```
 
-`.sablon` soneki ve `_claude` klasörü, şablon deposunda çalışırken aracın bu dosyaları talimat
-ya da ayar sanmaması içindir. `yeni-proje.ps1` hedefe kopyalarken dönüştürür: `.sablon` silinir,
-`_claude` → `.claude`, `gitignore.sablon` → `.gitignore`, `scripts\durum.ps1` → `.ai\durum.ps1`.
+`.sablon` soneki ve `_claude`/`_githooks` klasörleri, şablon deposunda çalışırken aracın ve
+Git'in bu dosyaları talimat, ayar ya da kanca sanmaması içindir. `yeni-proje.ps1` hedefe
+kopyalarken dönüştürür: `.sablon` silinir, `_claude` → `.claude`, `_githooks` → `.githooks`,
+`gitignore.sablon` → `.gitignore`, `gitattributes.sablon` → `.gitattributes`,
+`scripts\durum.ps1` → `.ai\durum.ps1`.
 
 ## Kurulum (bilgisayara bir kez)
 
@@ -126,7 +134,17 @@ yedeklenip ezilmesine izin verir.
    amaç, ekler, test ve biçim komutları, kısıtlar, ilk adım), özet gösterip onay
    ister, sonra `yeni-proje.ps1` ile dosyaları kopyalar ve kalan alanları doldurur.
 3. Şablon deposunun içi, ev klasörü, Masaüstü kökü ve Staj'a kurulum yapılmaz.
-4. Yeni oturum aç, güven penceresini kabul et; Codex'te `$basla`.
+4. Git'i sen kurarsın (şablon Git'e dokunmaz):
+
+   ```powershell
+   git init -b main
+   git config user.email "Emir-Ars@users.noreply.github.com"
+   git config core.hooksPath .githooks
+   ```
+
+   Son satır `.githooks\commit-msg` kancasını etkinleştirir: mesajında yapay zekâ imzası
+   (Co-Authored-By: Claude…) olan commit reddedilir. Bu kanca iki araçta da çalışır.
+5. Yeni oturum aç, güven penceresini kabul et; Codex'te `$basla`.
 
 Betiği doğrudan da çalıştırabilirsin (yer tutucuları doldurmaz, onu araç yapar):
 
@@ -144,7 +162,7 @@ satırları ve ek bölümleri yalnız eklenir.
 | Kurallar | `AGENTS.md` | Git | Yalnız projeye özel; kişisel kurallar genel dosyada. |
 | Plan | `PLAN.md` | Git | Kısa (~100 satır); biten aşama tek satır. |
 | Kararlar | `KARARLAR.md` | Git | Yalnız eklenir (`K-001`, `K-002`…). |
-| Günlük | `GUNLUK.md` | Git | Yalnız eklenir; en yeni sonda. |
+| Günlük | `GUNLUK.md` | Git | Yalnız eklenir; biten adım ve kararlar; her oturumda değil. |
 | Devir notu | `DEVAM.md` | Git dışı | "Şu an"; her seferinde baştan yazılır, en çok ~60 satır. |
 | Durum betiği | `.ai/durum.ps1` | Git | Salt okunur; devir notunun güncelliğini denetler. |
 

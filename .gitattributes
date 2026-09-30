@@ -1,0 +1,2 @@
+# Sablondaki Git kancasi sh betigidir; klonlanirken CRLF'e cevrilirse hedef projede calismaz.
+proje/_githooks/* text eol=lf

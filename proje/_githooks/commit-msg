@@ -1,0 +1,10 @@
+#!/bin/sh
+# ai-sablon: commit mesajinda yapay zeka imzasi olmasin (kullanici kurali).
+# Etkin olmasi icin bir kez: git config core.hooksPath .githooks
+# Yalniz yapay zeka imzalari reddedilir; insan ortak yazar (Co-Authored-By) serbesttir.
+if grep -qiE '^co-authored-by:.*(claude|anthropic|codex|openai|chatgpt|copilot|gemini)|generated with .*(claude|codex)' "$1"; then
+  echo "commit reddedildi: mesajda yapay zeka imzasi var (Co-Authored-By / Generated with)." >&2
+  echo "Imza satirini silip yeniden commit et." >&2
+  exit 1
+fi
+exit 0

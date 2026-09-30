@@ -136,9 +136,11 @@ $script:Plan = New-Object System.Collections.Generic.List[object]
 $projeKlasoru = Join-Path $Kok 'proje'
 foreach ($f in (Get-ChildItem -LiteralPath $projeKlasoru -Recurse -File -Force | Sort-Object FullName)) {
     $rel = $f.FullName.Substring($projeKlasoru.Length + 1)
-    $parcalar = @($rel -split '\\' | ForEach-Object { if ($_ -eq '_claude') { '.claude' } else { $_ } })
+    $parcalar = @($rel -split '\\' | ForEach-Object { if ($_ -match '^_(claude|githooks)$') { '.' + $Matches[1] } else { $_ } })
     $son = $parcalar[$parcalar.Count - 1]
-    if ($son -eq 'gitignore.sablon') { $son = '.gitignore' } else { $son = $son -replace '\.sablon(?=\.[^.]+$)', '' }
+    if ($son -eq 'gitignore.sablon') { $son = '.gitignore' }
+    elseif ($son -eq 'gitattributes.sablon') { $son = '.gitattributes' }
+    else { $son = $son -replace '\.sablon(?=\.[^.]+$)', '' }
     $parcalar[$parcalar.Count - 1] = $son
     $hedefRel = $parcalar -join '\'
     $tur = 'sablon'
@@ -276,6 +278,8 @@ foreach ($p in $script:Plan) {
             if ($p.Var) { $sonuclar.Add("ATLANDI    $($p.Rel)"); continue }
             $m = Doldur (MetinOku $p.Kaynak)
             if ($p.Rel -eq 'AGENTS.md') { $m = EkleriUygula $m }
+            # Git kancası sh betiğidir; şablon CRLF'li klonlanmış olsa bile hedefe LF yazılır.
+            if ($p.Rel -like '.githooks\*') { $m = $m.Replace("`r`n", "`n") }
             MetinYaz $p.Yol $m
             $degisen.Add($p.Rel); $sonuclar.Add("OLUŞTURULDU $($p.Rel)")
         }

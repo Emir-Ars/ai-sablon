@@ -38,10 +38,10 @@ sonrası yazı) boş olabilir; varsa devir notuna eklenecek bir uyarıdır.
    Kararlar'a, kalıcı bilgiyi Plan'a taşıyarak kısalt. Haritada bu belgeler yoksa
    (eski düzen) kısaltma; "devir notu N satır, sınırı aşıyor" diye söyle ve ne
    yapılacağını sor.
-7. **Günlük.** Haritada Günlük varsa sonuna 3-5 satırlık kayıt ekle (Günlük'ün kendi
-   kayıt biçimini kullan; saat adım 4'ten; araç adı olarak model adını değil "Claude
-   Code" ya da "Codex" yaz). Haritada Günlük yoksa bu
-   adımı atla.
+7. **Günlük.** Haritada Günlük varsa ve bu oturumda bir adım ya da karar bittiyse
+   sonuna 3-5 satırlık kayıt ekle. Günlük'ün kendi kayıt biçimini kullan; saat adım
+   4'ten; araç adı olarak model adını değil "Claude Code" ya da "Codex" yaz. Bitmiş iş
+   yoksa ya da haritada Günlük yoksa bu adımı atla.
 8. **Rapor ver.** Hangi belgeler güncellendi, Devir notunun yeni "Son güncelleme"
    saati, commit edilmemiş dosyaların listesi. Kullanıcıya şunu söyle: yeni araçta
    yeni sohbet aç ve `/basla` (Codex'te `$basla`) yaz.

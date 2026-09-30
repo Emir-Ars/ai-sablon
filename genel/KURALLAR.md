@@ -26,7 +26,13 @@ sonra `kur.ps1`'i yeniden çalıştırmasını kullanıcıdan iste.
 
 - Önce plan, sonra kullanıcının onayı, sonra kod. Kullanıcı plan ya da açıklama
   istediğinde kod yazma.
-- Tek adım at, sonra dur. Hızlı ve toplu değişiklik kullanıcıyı kaybettirir.
+- Çalışma birimi, plandaki **tek adımdır** (ör. `PLAN.md`'de 1.1); planın tamamı değil.
+  Adımı baştan sona bitir: kod, test, hata düzeltme. Her dosya değişikliğinden sonra
+  durup sorma. Adım bitince ne yaptığını sade dille özetle, commit öner ve dur. Sonraki
+  adıma (1.2) kullanıcı söylemeden geçme.
+- Adımın ortasında yalnız şu kontrol noktalarında dur ve sor: planda olmayan iş ya da
+  kapsam değişikliği, yeni bağımlılık, `.env` ya da gizli ayar, biten aşamanın
+  arayüzü, düzeltemediğin kırmızı test, geri alınması zor komut.
 - Yeni mimari seçimlerini kullanıcıyla netleştir. Kullanıcının güncel kararı bir
   belgeyle çelişirse çelişkiyi söyle ve belgeyi karara uydur.
 - Planlanan, uygulanmış ve karar bekleyen işleri birbirine karıştırma.
@@ -73,8 +79,8 @@ sonra `kur.ps1`'i yeniden çalıştırmasını kullanıcıdan iste.
   Dosya adları projenin `AGENTS.md`'sindeki Belge haritasından okunur.
 - Oturum başında durum çıktısında `UYARI` satırı varsa **ilk cevabında kullanıcıya
   söyle**. Bu çıktıyı kullanıcı görmez, sen söylemezsen bilmez.
-- Sonunda ya da araç değişmeden önce: Devir notunu baştan yaz; projede Günlük varsa
-  ona kısa kayıt ekle.
+- Sonunda ya da araç değişmeden önce: Devir notunu baştan yaz. Günlük'e yalnız bu
+  oturumda bir adım ya da karar bittiyse kısa kayıt ekle; her oturumda değil.
 - Kısayollar: `/basla`, `/devir`, `/karar`, `/yeni-proje`. Codex'te `$basla`,
   `$devir`, `$karar`, `$yeni-proje`.
 - İki araç aynı anda çalıştırılmaz. Araca dönünce yeni sohbet açılır.
@@ -92,7 +98,7 @@ cümleyle söyle. Roller ve dosya adları projenin Belge haritasındadır.
 | Kodun davranışı, komutu veya kuralı değişti | Teknik belge; gerekirse README |
 | Yeni sınır veya hata görüldü | Plan'ın "Bilinen sınırlar" bölümü |
 | Kalıcı proje kuralı söylendi | Projenin `AGENTS.md`'si |
-| Oturum bitiyor ya da araç değişecek | Devir notu; Günlük varsa Günlük |
+| Oturum bitiyor ya da araç değişecek | Devir notu; adım ya da karar bittiyse Günlük |
 
 - Belgeler baştan yazılmaz: yeni bilgi ilgili yere eklenir, eskiyle çelişirse eskisi
   düzeltilir. Tek istisna Devir notudur; o her seferinde baştan yazılır.

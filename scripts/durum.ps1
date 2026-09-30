@@ -125,6 +125,13 @@ try {
             }
             $it = @(GitCalistir @('rev-list', '--count', '@{u}..HEAD'))
             if ($script:GitKod -eq 0 -and $it.Count -gt 0) { $bekleyenPush = [int]$it[0] }
+            # Kanca dosyası var ama Git'e tanıtılmamışsa imza denetimi çalışmaz; kullanıcıya hatırlatılır.
+            if (Test-Path -LiteralPath (Join-Path $kok '.githooks\commit-msg') -PathType Leaf) {
+                $hp = @(GitCalistir @('config', '--get', 'core.hooksPath'))
+                if ($hp.Count -eq 0 -or $hp[0] -ne '.githooks') {
+                    $bilgiler.Add('BİLGİ: commit-msg kancası etkin değil; kullanıcı bir kez çalıştırsın: git config core.hooksPath .githooks')
+                }
+            }
             # Biten aşamanın kodu donmuştur; son aşama etiketinden beri değişen dosya sayısı hatırlatılır.
             $etiket = @(GitCalistir @('describe', '--tags', '--abbrev=0', '--match', 'asama-*'))
             if ($script:GitKod -eq 0 -and $etiket.Count -gt 0) {
