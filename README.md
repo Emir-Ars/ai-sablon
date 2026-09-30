@@ -155,6 +155,24 @@ powershell -NoProfile -ExecutionPolicy Bypass -File <ai-sablon>\scripts\yeni-pro
 `-Kontrol` yalnız envanter çıkarır. Var olan hiçbir dosyanın üzerine yazılmaz; `.gitignore`
 satırları ve ek bölümleri yalnız eklenir.
 
+## Bir projenin baştan sona akışı
+
+1. **Kurulum:** `/yeni-proje`, sonra Git (yukarıdaki 4. adım). GitHub'da boş ve özel bir repo aç
+   (README/.gitignore/lisans işaretleme), adresini ekle: `git remote add origin <adres>`.
+2. **Araştırma:** Topladığın belgeleri `docs\arastirma\` klasörüne koy (klasörü sen açarsın;
+   gizli bilgi koyma).
+3. **Plan:** Plan modunda "`docs/arastirma/` klasöründeki belgeleri oku ve projenin tam planını
+   çıkar" de. Planı onaylayınca "bunu `PLAN.md`'ye yaz" de: ana başlıklar Aşamalar tablosuna,
+   ilk aşamanın alt başlıkları adım tablosuna (1.1, 1.2…) girer. Plan modundaki plan araç
+   klasöründe kalır; `PLAN.md`'ye yazılmazsa diğer araç göremez.
+4. **Adım adım:** "1.1'i yap" de. Yapay zekâ 1.1'i baştan sona bitirir (kod, test, düzeltme),
+   özetler, commit önerir ve durur. Onay verirsen commit eder; push için ayrıca sorar. 1.2'ye
+   sen söylemeden geçmez. Yolda karar verirsen `/karar …`.
+5. **Aşama sonu:** Aşamanın bütün adımları bitince testler geçer, yapay zekâ commit ve
+   `git tag asama-1` önerir. Sonraki aşama için yine plan modunda o aşamanın adımlarını çıkar
+   ve `PLAN.md`'ye yazdır. Biten aşamanın dışa açık arayüzü donar; değişmesi gerekirse sana sorulur.
+6. **Oturum:** Başta `/basla`, sonda ya da araç değiştirirken `/devir`.
+
 ## Proje içindeki belge düzeni
 
 | Rol | Dosya | Git | Sınır |
