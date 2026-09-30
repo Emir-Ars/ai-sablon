@@ -28,7 +28,8 @@ ifadeler burada gelir.
      `powershell -NoProfile -ExecutionPolicy Bypass -File "__SABLON_KOKU__\scripts\durum.ps1" -Proje .`
    - O da çalışmazsa: `git --no-optional-locks status --short --branch` ve
      `git --no-optional-locks log --oneline -5`.
-3. **Oku.** Plan'ın şu anki aşama ve adım ile açık kararlar bölümlerini, sonra Devir
+3. **Oku.** Plan'ın şu anki aşama ve adım, açık kararlar, varsa açık yüksek riskli
+   varsayımlar ve son "Sürprizler" bölümlerini, sonra Devir
    notunu. Claude Code'da Plan ve Devir notu `CLAUDE.md` ile zaten bağlamdadır;
    yeniden okuma. Plan çok uzunsa (300 satırdan fazla) tamamını okuma: başlıklara
    `Select-String -Pattern '^#'` ile bak, yalnız gereken bölümü oku. Kararlar ve Günlük

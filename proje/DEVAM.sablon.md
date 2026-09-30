@@ -22,8 +22,8 @@ Proje şablondan kuruldu; araştırma ve plan bekleniyor (Aşama 0).
 ## Sıradaki iş
 
 1. Araştırma sonuçlarını `docs/arastirma/genel/` klasörüne koy.
-2. Plan modunda "araştırmaya göre projenin planını çıkar" de; onaylanınca plan
-   `PLAN.md`'ye yazılır.
+2. Plan modunda "araştırmaya göre projenin planını çıkar" de. Önce anlama özeti ve
+   sorular gelir, sonra plan taslağı; onaylanınca plan `PLAN.md`'ye yazılır.
 
 Nereden başla: `PLAN.md` adım 0.1.
 

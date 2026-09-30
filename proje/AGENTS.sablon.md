@@ -40,16 +40,49 @@ araştırma, `asama-N/` N. ana başlık için yapılan araştırma. Belge tek bi
   Kullanıcı bir dosyanın yerini verirse dosyayı oraya kendin kopyala (adıma özelse
   adın başına adım numarasını ekle); metin yapıştırırsa `.md` olarak kaydet. Sonra
   belgeyi oku ve kısa özet ver.
-- **Projenin planı:** `genel/` klasöründeki belgeleri oku. Önce taslak göster, hiçbir
-  dosyaya yazma: amaç, kapsam ve yapılmayacaklar, kısıtlar, teknoloji seçimi ve ana
-  başlıklar. Her ana başlık için ad, amaç, "bitti" ölçütü ve bağlı olduğu başlıklar.
-  Alt adımları yalnız gerekiyorsa yaz; ana başlıklar ayrıca planlanır. Onaylanınca:
-  ana başlıklar `PLAN.md` Aşamalar tablosuna (Aşama 0 "Bitti" olur); amaç ve kapsam
-  `PLAN.md`'ye ve yukarıdaki Proje özetine; kısıtlar aşağıdaki bölüme; teknoloji
-  seçimi gibi kararlar `KARARLAR.md`'ye.
-- **Bir ana başlığın planı** (ör. "2. başlığı planla"): `genel/` ve `asama-2/`
-  klasörlerini oku; başka aşamaların araştırmasını okuma. Başlığı adımlara böl
-  (2.1, 2.2…), taslak göster, onaylanınca `PLAN.md` adım tablosuna yaz.
+Planlama bir rehberdir, prosedür değil. Amaç planın geç değil erken değişmesi. Bir
+adımı atlarsan ya da farklı yol izlersen bunu gerekçesiyle tek satırda söyle.
+
+**İlkeler**
+- Araştırma belgeleri girdidir, emir değil: eksik, eskimiş ya da hatalı olabilir.
+  Sorgula; daha iyi bir yol görürsen öner, belgeyle çelişiyorsa açıkça "çelişki" de.
+- Kaynağı görünür tut: her gereksinim ve kararın yanına `[B: dosya#bölüm]` belgeden,
+  `[Ö]` senin önerin, `[V]` varsayım yaz.
+- Yalnız cevabı planı değiştirecek soruları sor (mimari, veri modeli, dış arayüz);
+  gerisini makul varsayımla `[V]` olarak yaz ve ilerle. Soruları tek turda topla.
+- En riskli varsayımı en erken sına: ilk aşama, uçtan uca en ince çalışan yol olsun
+  ve yüksek riskli `[V]`'leri gerçek kodla denesin. Bunu iskelette sınayamıyorsan
+  küçük, süresi sınırlı, atılacak bir deneme öner.
+- Yakını ayrıntılı, uzağı kaba planla: yalnız üzerinde çalışılan ana başlık adımlara
+  bölünür; uzak başlık = amaç + "bitti" + açık riskler.
+- "Bitti" çalıştırılabilir olsun: bir komut ya da test ve beklenen sonuç.
+- Yalnız aşama sınırını geçen arayüzleri tanımla; ileride lazım olur diye soyutlama kurma.
+- Karar kaydını yalnız geri dönüşü pahalı kararlara yaz (veri modeli, kütüphane,
+  dosya biçimi, dış servis).
+
+**Kontrol noktaları** (kullanıcı onayı beklenir)
+1. **Anlama:** `genel/` belgelerinden amaç, kapsam dışı, etiketli gereksinimler,
+   ölçülebilir başarı ölçütleri, "çelişki / eskime" listesi ve sorular. Hiçbir
+   dosyaya yazma.
+2. **Plan taslağı:** ana başlıklar (ad, amaç, "bitti", bağımlılık), önemli kararlar ve
+   varsayım tablosu. Onaylanınca: ana başlıklar, başarı ölçütleri ve varsayımlar
+   `PLAN.md`'ye (Aşama 0 "Bitti" olur); amaç ve kapsam `PLAN.md`'ye ve yukarıdaki
+   Proje özetine; kısıtlar aşağıdaki bölüme; kararlar `KARARLAR.md`'ye. Kullanıcıya
+   planı yeni bir oturumda ya da Codex'te eleştirtmeyi öner (isteğe bağlı): "Bu proje
+   başarısız oldu; en olası 5 teknik neden ne? Her gereksinim bir başlığa bağlı mı?"
+   Aynı sohbette kendi planını eleştirme; bu yeni bilgi getirmez.
+3. **Her ana başlığın başında** (ör. "2. başlığı planla"): varsayımları güncelle
+   (doğrulandı / çürüdü), "Sürprizler"i oku, `genel/` ve `asama-2/` klasörlerini oku
+   (başka aşamanın araştırmasını okuma), başlığı adımlara böl (2.1, 2.2…), etkilenen
+   sonraki başlıkları söyle. Onaylanınca `PLAN.md` adım tablosuna yaz.
+
+**Değişiklik**
+- Uygulama plandan sapıyorsa dur, sessizce doğaçlama yapma: `PLAN.md` değişikliğini ve
+  etkisini öner. Beklenmedik bir şey görürsen `PLAN.md` "Sürprizler"e bir satır yaz.
+- Çürüyen varsayım ya da donmuş arayüz değişikliği `KARARLAR.md`'ye yeni kayıt olur.
+
+**Ölçek:** Tek cümleyle anlatılabilen iş için plan yapma, doğrudan yap. Küçük
+projede karar tablosu ve ayrı deneme gerekmez.
 - **Ek:** Teknoloji belli olunca uygun ek varsa (`{{SABLON_KOKU}}\ekler` altındaki
   klasörler; ör. Python için `python-windows`) kurmayı öner ve ne eklediğini söyle.
   Onaylanırsa ekin `EK.md` dosyasındaki soruları sor, sonra şunu çalıştır:

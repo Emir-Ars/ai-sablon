@@ -30,7 +30,7 @@ ai-sablon\
 ├─ .gitignore              yedek dosyaları ve yerel ayar
 ├─ .gitattributes          şablondaki Git kancası LF kalsın
 ├─ docs\
-│  └─ arastirma\           şablonun bağımsız değerlendirme raporları (3 yapay zekâ, 30.09.2026)
+│  └─ arastirma\           şablonun değerlendirmesi (3 rapor) ve planlama araştırması (planlama-*.md, 4 rapor)
 ├─ genel\
 │  └─ KURALLAR.md          kişisel kuralların TEK kaynağı
 ├─ proje\                  çekirdek proje şablonu (adlar hedefte dönüşür)
@@ -165,12 +165,19 @@ satırları, ek bölümleri ve (ayar dosyası bu şablondan kurulduysa) ek izinl
    bilgi koyma). Sonradan bir ana başlık ya da adım için araştırma yaparsan yapay zekâya
    "araştırma ekleyeceğim" de: o aşamanın klasörünü (`asama-N\`) açıp yolunu söyler; dosyanın
    yerini verirsen kendisi kopyalar.
-3. **Plan:** Plan modunda "araştırmaya göre projenin planını çıkar" de. Yapay zekâ önce taslak
-   gösterir: amaç, kapsam, kısıtlar, teknoloji ve ana başlıklar (her birinin amacı, "bitti"
-   ölçütü, bağımlılığı). Onaylayınca `PLAN.md`, `AGENTS.md` ve `KARARLAR.md`'ye yazar; teknoloji
-   Python ise `python-windows` ekini kurmayı önerir.
-   Bir ana başlığa geçerken "2. başlığı planla" de: o başlığın araştırmasını okur, adımlara
-   (2.1, 2.2…) böler, onaylanınca `PLAN.md`'ye yazar.
+3. **Plan:** Plan modunda "araştırmaya göre projenin planını çıkar" de. İki kontrol noktası var:
+   - **Anlama:** gereksinimler (her biri `[B]` belgeden / `[Ö]` yapay zekânın önerisi / `[V]`
+     varsayım diye etiketli), başarı ölçütleri, belgeyle çelişkiler ve yalnız planı
+     değiştirecek sorular. Belgeye körü körüne uymaz, daha iyisini görürse önerir.
+   - **Plan taslağı:** ana başlıklar (amaç, "bitti" = komut/test, bağımlılık), önemli kararlar
+     ve varsayım tablosu. İlk başlık, riskli varsayımları gerçek kodla sınayan ince bir uçtan
+     uca iskelettir; uzak başlıklar kaba kalır. Onaylayınca `PLAN.md`, `AGENTS.md` ve
+     `KARARLAR.md`'ye yazar; teknoloji Python ise `python-windows` ekini önerir.
+   İstersen planı yeni bir oturumda ya da Codex'te eleştirt (aynı sohbette eleştirmek işe yaramaz).
+   Bir ana başlığa geçerken "2. başlığı planla" de: varsayımları ve "Sürprizler"i günceller, o
+   başlığın araştırmasını okur, adımlara (2.1, 2.2…) böler, onaylanınca `PLAN.md`'ye yazar.
+   Uygulama plandan saparsa yapay zekâ durur ve planın güncellenmesini önerir.
+   Planlama kuralının dayandığı araştırmalar: `docs\arastirma\planlama-*.md`.
 4. **Adım adım:** "1.1'i yap" de. Yapay zekâ 1.1'i baştan sona bitirir (kod, test, düzeltme),
    özetler, commit önerir ve durur. Onay verirsen commit eder; push için ayrıca sorar. 1.2'ye
    sen söylemeden geçmez. Yolda karar verirsen `/karar …`.
@@ -184,7 +191,7 @@ satırları, ek bölümleri ve (ayar dosyası bu şablondan kurulduysa) ek izinl
 | Rol | Dosya | Git | Sınır |
 |---|---|---|---|
 | Kurallar | `AGENTS.md` | Git | Yalnız projeye özel; kişisel kurallar genel dosyada. |
-| Plan | `PLAN.md` | Git | Kısa (~100 satır); biten aşama tek satır. |
+| Plan | `PLAN.md` | Git | Kısa (~100-150 satır): başarı ölçütleri, aşamalar, şu anki adımlar, varsayımlar, sürprizler; biten aşama tek satır. |
 | Kararlar | `KARARLAR.md` | Git | Yalnız eklenir (`K-001`, `K-002`…). |
 | Günlük | `GUNLUK.md` | Git | Yalnız eklenir; biten adım ve kararlar; her oturumda değil. |
 | Devir notu | `DEVAM.md` | Git dışı | "Şu an"; her seferinde baştan yazılır, en çok ~60 satır. |
