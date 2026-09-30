@@ -125,6 +125,14 @@ try {
             }
             $it = @(GitCalistir @('rev-list', '--count', '@{u}..HEAD'))
             if ($script:GitKod -eq 0 -and $it.Count -gt 0) { $bekleyenPush = [int]$it[0] }
+            # Biten aşamanın kodu donmuştur; son aşama etiketinden beri değişen dosya sayısı hatırlatılır.
+            $etiket = @(GitCalistir @('describe', '--tags', '--abbrev=0', '--match', 'asama-*'))
+            if ($script:GitKod -eq 0 -and $etiket.Count -gt 0) {
+                $etiketDegisen = @(GitCalistir @('diff', '--name-only', $etiket[0]))
+                if ($script:GitKod -eq 0) {
+                    $bilgiler.Add("BİLGİ: son aşama etiketi $($etiket[0]); o zamandan beri değişen dosya: $($etiketDegisen.Count).")
+                }
+            }
         }
     }
     else {

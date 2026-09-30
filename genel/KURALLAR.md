@@ -47,6 +47,17 @@ sonra `kur.ps1`'i yeniden çalıştırmasını kullanıcıdan iste.
   sınar; gerçek sonuç için canlı kanıt gerekir.
 - Test çıktısında `skipped` sayısı 0 değilse "hepsi geçti" deme.
 
+## Kodu korumak
+
+- Kör silme yok: bir fonksiyonu, sınıfı, dosyayı ya da ayarı silmeden önce projede
+  adını ara. Kullanıldığı yer kalıyorsa silme; kullanıcıya söyle.
+- Kodu kısaltarak yazma: `// ... mevcut kod ...` gibi yer tutucu bırakma. Küçük
+  değişikliği yalnız ilgili yeri düzenleyerek yap; dosyayı baştan yazıyorsan eksiksiz yaz.
+- Yeni bağımlılık (paket, kütüphane) eklemeden ve `.env` ya da gizli ayarı
+  değiştirmeden önce kullanıcıya sor.
+- Geri alınması zor komutlar (`git push --force`, `git reset --hard`, `git clean`,
+  toplu ya da özyinelemeli silme) yalnız kullanıcının açık onayıyla.
+
 ## Proje hafızası
 
 - Durum, karar ve devir bilgisi yalnız repo dosyalarına yazılır (projenin
@@ -111,8 +122,9 @@ cümleyle söyle. Roller ve dosya adları projenin Belge haritasındadır.
 
 - Kabuk Windows PowerShell 5.1'dir: `&&` ve `||` yok. Komutları `;` ile ya da ayrı
   çağrılarla ver.
-- Türkçe commit mesajı UTF-8 bir dosyaya yazılır ve `git commit -F <dosya>` ile
-  verilir; here-string ile boru hattı mesajı bozar.
+- Türkçe commit mesajı **BOM'suz** UTF-8 bir dosyaya yazılır ve `git commit -F <dosya>`
+  ile verilir; here-string ile boru hattı mesajı bozar, BOM mesajın başına görünmez
+  karakter ekler.
 - `.ps1` dosyaları UTF-8 **BOM'lu**, md/json/yaml dosyaları BOM'suz kaydedilir;
   PowerShell 5.1 BOM'suz dosyada Türkçe karakteri bozar. Bir `.ps1` düzenlendikten
   sonra ilk 3 baytı (`239 187 191`) kontrol et.

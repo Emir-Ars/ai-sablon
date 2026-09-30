@@ -39,7 +39,8 @@ sonrası yazı) boş olabilir; varsa devir notuna eklenecek bir uyarıdır.
    (eski düzen) kısaltma; "devir notu N satır, sınırı aşıyor" diye söyle ve ne
    yapılacağını sor.
 7. **Günlük.** Haritada Günlük varsa sonuna 3-5 satırlık kayıt ekle (Günlük'ün kendi
-   kayıt biçimini kullan; saat adım 4'ten, araç adı yaz). Haritada Günlük yoksa bu
+   kayıt biçimini kullan; saat adım 4'ten; araç adı olarak model adını değil "Claude
+   Code" ya da "Codex" yaz). Haritada Günlük yoksa bu
    adımı atla.
 8. **Rapor ver.** Hangi belgeler güncellendi, Devir notunun yeni "Son güncelleme"
    saati, commit edilmemiş dosyaların listesi. Kullanıcıya şunu söyle: yeni araçta

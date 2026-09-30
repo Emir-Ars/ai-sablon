@@ -14,3 +14,10 @@
   canlı doğrulama için kullanıcının çalıştıracağı komutu ver.
 - `.venv` oluşturma ve paket kurma (`pip install`) dış sisteme gider: komutu ver,
   kullanıcı çalıştırsın.
+- Gizli değerler `.env` dosyasındadır (Git'e girmez). Projenin ihtiyaç duyduğu
+  değişkenlerin adları `.env.example` dosyasında değersiz olarak listelenir; yeni bir
+  değişken gerekirse adını oraya ekle.
+- CI (`.github/workflows/ci.yml`) her push'ta `black --check`, `flake8` ve `pytest`
+  çalıştırır. Bağımlılıklar `requirements.txt`'ten kurulur; yeni bağımlılık ekleyince onu
+  da güncelle. Depo özelse (`gh` de yok) CI sonucunu kullanıcı GitHub'ın Actions
+  sayfasından bakıp söyler; sonucu görmeden "CI geçti" deme.

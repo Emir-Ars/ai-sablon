@@ -32,7 +32,8 @@ sonrası yazı) kararın kendisidir.
      Measure-Object -Maximum).Maximum`
    - Tarih kabuktan: `Get-Date -Format 'yyyy-MM-dd'`.
    - Kayıt biçimi Kararlar dosyasının başında yazılıdır (Durum, Karar, Gerekçe,
-     Seçenekler, Etki, Kaynak). Kaynak satırına kullanıcı, tarih ve araç adını yaz.
+     Seçenekler, Etki, Kaynak). Kaynak satırına kullanıcı, tarih ve araç adını ("Claude Code" ya da "Codex",
+     model adı değil) yaz.
    - Yeni karar eskisinin yerine geçiyorsa eski kaydın **yalnız** `Durum` satırını
      `yerine geçildi → K-NNN` yap; başka satırına dokunma.
 5. **Diğer belgeleri düzelt.**

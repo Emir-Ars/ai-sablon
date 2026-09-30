@@ -44,7 +44,8 @@ Bu skill yalnız elle çağrılır. Çalışma klasörü hedef projedir.
 7. **Alanları doldur.** Kalan `{{…}}` alanlarını cevaplara göre kendin doldur
    (`references/sorular.md` hangi alanın hangi dosyada olduğunu söyler). Sonra:
    - `KARARLAR.md`'ye K-001 "Çalışma düzeni: ai-sablon" kaydı.
-   - `GUNLUK.md`'ye ilk kayıt (kurulum). Saat: `Get-Date -Format 'yyyy-MM-dd HH:mm'`.
+   - `GUNLUK.md`'ye ilk kayıt (kurulum). Saat: `Get-Date -Format 'yyyy-MM-dd HH:mm'`;
+     araç adı "Claude Code" ya da "Codex" (model adı değil).
 8. **Doğrula.** Hedef klasörde:
    - Ağaç doğru mu: `AGENTS.md`, `CLAUDE.md`, `PLAN.md`, `KARARLAR.md`, `GUNLUK.md`,
      `DEVAM.md`, `.gitignore`, `.claude\settings.json`, `.ai\durum.ps1`.

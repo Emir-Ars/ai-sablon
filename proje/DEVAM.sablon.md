@@ -23,6 +23,8 @@ Proje şablondan kuruldu; henüz iş yapılmadı.
 
 1. {{ILK_ADIM}}
 
+Nereden başla: `PLAN.md` adım 1.1.
+
 ## Kullanıcının çalıştıracakları
 
 Komut → çıktıda neye bakılır.

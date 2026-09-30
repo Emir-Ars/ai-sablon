@@ -45,7 +45,12 @@ ai-sablon\
 │     ├─ EK.md
 │     ├─ AGENTS.ek.md
 │     ├─ izinler.ek.json
-│     └─ gitignore.ek
+│     ├─ gitignore.ek
+│     └─ dosyalar\
+│        ├─ .env.example
+│        └─ .github\
+│           └─ workflows\
+│              └─ ci.yml
 ├─ skills\                 kısayollar (Claude ve Codex için aynı dosya)
 │  ├─ basla\
 │  │  └─ SKILL.md
@@ -197,6 +202,8 @@ Claude ve Codex'te çalışsın):
 - `AGENTS.ek.md`: hedef `AGENTS.md`'de `<!-- EKLER -->` işaretinin önüne eklenir.
 - `izinler.ek.json`: `permissions.allow/ask/deny` girdileri `.claude/settings.json`'a eklenir.
 - `gitignore.ek`: satırlar `.gitignore`'a tekrarsız eklenir.
+- `dosyalar\`: içindeki dosyalar yol yapısıyla hedefe kopyalanır (ör. `.github\workflows\ci.yml`,
+  `.env.example`); var olanın üzerine yazılmaz. `{{…}}` alanları varsa araç doldurur.
 
 `yeni-proje` ek listesini bu klasörden okur; başka yere kayıt gerekmez.
 

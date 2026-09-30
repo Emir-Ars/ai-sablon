@@ -12,20 +12,23 @@ Son güncelleme: {{TARIH}}
 
 ## Aşamalar
 
-| # | Aşama | Durum |
-|---|---|---|
-| 1 | {{ILK_ASAMA}} | Sürüyor |
+| # | Aşama | Durum | Etiket |
+|---|---|---|---|
+| 1 | {{ILK_ASAMA}} | Sürüyor | – |
 
 Biten aşama tek satıra indirilir; ayrıntısı `GUNLUK.md` ve `KARARLAR.md`'dedir.
+Etiket: aşama bitince atılan Git etiketi (`asama-1`); biten aşamanın kodu donmuştur.
+Plan modunda hazırlanan plan araç klasöründe kalır ve diğer araç göremez; onaylanınca
+aşamalar buraya, ilgili aşamanın adımları aşağıdaki tabloya yazılır.
 
 ## Şu anki aşamanın adımları
 
-| Adım | İş | Durum | Commit |
-|---|---|---|---|
-| 1.1 | {{ILK_ADIM}} | Bekliyor | – |
+| Adım | İş | Durum | Test | Commit |
+|---|---|---|---|---|
+| 1.1 | {{ILK_ADIM}} | Bekliyor | – | – |
 
-Durum: Bekliyor · Sürüyor · Bitti · Bloke. Adım bitince Commit sütununa kısa hash
-yazılır.
+Durum: Bekliyor · Sürüyor · Bitti · Bloke. Test sütununa adımı kanıtlayan test
+dosyası yazılır (kodsuz adımda `–`). Adım bitince Commit sütununa kısa hash yazılır.
 
 ## Açık kararlar
 

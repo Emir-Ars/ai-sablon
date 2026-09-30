@@ -11,6 +11,7 @@ test, biçim ve izin ayarlarını çekirdek şablona ekler. Bu dosya yalnız
 | `AGENTS.ek.md` | İçeriği hedef `AGENTS.md`'de `<!-- EKLER -->` işaretinin **önüne** eklenir; işaret yerinde kalır (başka ek de gelebilir). |
 | `izinler.ek.json` | `permissions.allow` girdileri `.claude/settings.json`'a tekrarsız eklenir; diğer anahtarlara dokunulmaz. |
 | `gitignore.ek` | Satırlar hedef `.gitignore`'a tekrarsız eklenir. |
+| `dosyalar\` | İçindeki dosyalar yol yapısı korunarak hedefe kopyalanır, var olanın üzerine yazılmaz: `.github\workflows\ci.yml` (GitHub Actions: `black`, `flake8`, `pytest`) ve `.env.example`. |
 
 ## Sorular (`yeni-proje` bunları çekirdek sorulara ekler)
 
@@ -22,8 +23,9 @@ test, biçim ve izin ayarlarını çekirdek şablona ekler. Bu dosya yalnız
 
 ## Yer tutucular (araç cevaplardan doldurur)
 
-- `{{KAYNAK}}`: soru 1'in cevabı, `AGENTS.ek.md` içinde iki yerde geçer.
-- `{{PYTHON_SURUMU}}`: soru 2'nin cevabı.
+- `{{KAYNAK}}`: soru 1'in cevabı; `AGENTS.ek.md` ve `ci.yml` içinde geçer.
+- `{{PYTHON_SURUMU}}`: soru 2'nin cevabı; `AGENTS.ek.md` ve `ci.yml` içinde geçer.
+  Bilinmiyorsa `ci.yml` içindeki sürüm satırını boş bırakma, kullanıcıdan öğren.
 
 ## Kullanıcıya önerilecek komutlar (araç çalıştırmaz)
 
@@ -46,3 +48,6 @@ Proje bağımlılıkları için ayrıca `requirements.txt` varsa
   çünkü komut metni kuralla birebir eşleşmezse izin yine sorulur.
 - Test, biçim ve stil komutlarının çalışması için `pytest`, `black`, `flake8`
   `.venv` içinde kurulu olmalıdır.
+- `ci.yml` kaynak klasörlerinin var olmasını ve en az bir test bulunmasını ister; ilk
+  test yazılmadan push edilirse CI kırmızı görünür (klasör yok ya da test yok hatası).
+  CI, GitHub'da ilk push'ta çalışır; `ci.yml`'nin geçerliliği orada görülür.

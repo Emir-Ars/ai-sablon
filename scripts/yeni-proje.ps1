@@ -128,7 +128,7 @@ foreach ($e in $ekAdlari) {
     if (Test-Path -LiteralPath (Join-Path $ekYol 'AGENTS.ek.md')) { $agentsEk = Doldur (MetinOku (Join-Path $ekYol 'AGENTS.ek.md')) }
     if (Test-Path -LiteralPath (Join-Path $ekYol 'izinler.ek.json')) { $izinEk = MetinOku (Join-Path $ekYol 'izinler.ek.json') }
     if (Test-Path -LiteralPath (Join-Path $ekYol 'gitignore.ek')) { $gitEk = @((MetinOku (Join-Path $ekYol 'gitignore.ek')) -split "`r?`n") }
-    $ekVeri.Add([pscustomobject]@{ Ad = $e; Agents = $agentsEk; Izin = $izinEk; Git = $gitEk })
+    $ekVeri.Add([pscustomobject]@{ Ad = $e; Yol = $ekYol; Agents = $agentsEk; Izin = $izinEk; Git = $gitEk })
 }
 
 # ---------------------------------------------------------------- plan
@@ -146,6 +146,15 @@ foreach ($f in (Get-ChildItem -LiteralPath $projeKlasoru -Recurse -File -Force |
     PlanaEkle $f.FullName $hedefRel $tur
 }
 PlanaEkle (Join-Path $Kok 'scripts\durum.ps1') '.ai\durum.ps1' 'ps1'
+
+# Ekin dosyalar\ klasörü olduğu gibi (yol yapısı korunarak) hedefe kopyalanır; var olan dosyanın üzerine yazılmaz.
+foreach ($ek in $ekVeri) {
+    $dosyaKlasoru = Join-Path $ek.Yol 'dosyalar'
+    if (-not (Test-Path -LiteralPath $dosyaKlasoru -PathType Container)) { continue }
+    foreach ($f in (Get-ChildItem -LiteralPath $dosyaKlasoru -Recurse -File -Force | Sort-Object FullName)) {
+        PlanaEkle $f.FullName $f.FullName.Substring($dosyaKlasoru.Length + 1) 'ekdosya'
+    }
+}
 
 $agentsPlan = $script:Plan | Where-Object { $_.Rel -eq 'AGENTS.md' } | Select-Object -First 1
 $ayarPlan = $script:Plan | Where-Object { $_.Rel -eq '.claude\settings.json' } | Select-Object -First 1
@@ -288,6 +297,12 @@ foreach ($p in $script:Plan) {
                 }
             }
             MetinYaz $p.Yol $m
+            $degisen.Add($p.Rel); $sonuclar.Add("OLUŞTURULDU $($p.Rel)")
+        }
+        'ekdosya' {
+            # İki ek aynı yolu verirse ikincisi ilkinin üzerine yazmasın: yazmadan hemen önce yeniden bakılır.
+            if ($p.Var -or (Test-Path -LiteralPath $p.Yol -PathType Leaf)) { $sonuclar.Add("ATLANDI    $($p.Rel)"); continue }
+            MetinYaz $p.Yol (Doldur (MetinOku $p.Kaynak))
             $degisen.Add($p.Rel); $sonuclar.Add("OLUŞTURULDU $($p.Rel)")
         }
         'gitignore' {

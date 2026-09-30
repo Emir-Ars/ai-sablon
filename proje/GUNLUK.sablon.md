@@ -6,7 +6,7 @@ yapıldı, commit, karar, sonraki adım.
 Kayıt biçimi:
 
 ```
-## yyyy-MM-dd HH:mm · <araç> · Aşama/Adım
+## yyyy-MM-dd HH:mm · <Claude Code ya da Codex> · Aşama/Adım
 - Yapılan: …
 - Commit: <hash> (push: evet/hayır, CI: …)
 - Karar: K-NNN ya da yok

@@ -113,14 +113,15 @@ function AyarDurumu([string]$Yol) {
     if ((Get-Item -LiteralPath $Yol).Length -eq 0) { return 'BOŞ' }
     try { $o = [System.IO.File]::ReadAllText($Yol) | ConvertFrom-Json } catch { return 'BOZUK' }
     if ($null -eq $o -or $o -is [array]) { return 'BOZUK' }
+    # Claude bu iki alanı metin bekler (boş metin imzayı gizler); false yazılırsa dosyanın tamamı yok sayılır.
     $a = $o.attribution
-    if ($a -and $a.commit -eq $false -and $a.pr -eq $false) { return 'AYNI' }
+    if ($a -and ($a.commit -is [string]) -and ($a.pr -is [string]) -and $a.commit -ceq '' -and $a.pr -ceq '') { return 'AYNI' }
     return 'FARKLI'
 }
 
 # Yalnız "attribution" anahtarını ekler ya da değiştirir; öteki anahtarlar korunur.
 function AyarYaz([string]$Yol) {
-    $attr = [pscustomobject]@{ commit = $false; pr = $false }
+    $attr = [pscustomobject]@{ commit = ''; pr = '' }
     if ((Test-Path -LiteralPath $Yol) -and (Get-Item -LiteralPath $Yol).Length -gt 0) {
         $o = [System.IO.File]::ReadAllText($Yol) | ConvertFrom-Json
         $o | Add-Member -NotePropertyName attribution -NotePropertyValue $attr -Force
