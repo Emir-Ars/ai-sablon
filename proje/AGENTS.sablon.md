@@ -19,12 +19,45 @@ tabloyu da güncelle.
 | Günlük | `GUNLUK.md` | Git | Biten adım ve kararların kısa kaydı; en yeni sonda. Her oturumda değil. |
 | Devir notu | `DEVAM.md` | Git dışı | "Şu an" durumu; her seferinde baştan yazılır. |
 | Teknik belge | `docs/teknik.md` | Git | Kodun işleyişi. Yoksa kendiliğinden oluşturma; gerekirse kullanıcıya sor. |
-| Araştırma | `docs/arastirma/` | Git | Proje başında toplanan araştırma ve kaynak notları. Klasör ilk dosyayla oluşur. |
+| Araştırma | `docs/arastirma/` | Git | `genel/`: projenin başındaki araştırma; `asama-N/`: N. ana başlık için araştırma. Ayrıntı: "Planlama ve araştırma". |
 | Durum betiği | `.ai/durum.ps1` | Git | Oturum başı durum ve devir notu denetimi (salt okunur). |
 
 ## Proje özeti
 
-{{AMAC}}
+İlk fikir (araştırmadan önce): {{AMAC}}
+
+Amaç, kapsam ve teknoloji planlamadan sonra buraya yazılır.
+
+## Planlama ve araştırma
+
+Araştırma belgeleri `docs/arastirma/` altındadır: `genel/` projenin başındaki
+araştırma, `asama-N/` N. ana başlık için yapılan araştırma. Belge tek bir adıma
+özelse dosya adı adım numarasıyla başlar (ör. `asama-2/2.4-odeme.md`).
+
+- **Araştırma eklemek:** Kullanıcı "araştırma ekleyeceğim" derse hangi aşama için
+  olduğunu `PLAN.md`'den bul (şu an süren aşama; belli değilse sor). Aşama 0'daysa
+  `genel/`, değilse `asama-N/`. Klasör yoksa aç ve kullanıcıya tam yolunu söyle.
+  Kullanıcı bir dosyanın yerini verirse dosyayı oraya kendin kopyala (adıma özelse
+  adın başına adım numarasını ekle); metin yapıştırırsa `.md` olarak kaydet. Sonra
+  belgeyi oku ve kısa özet ver.
+- **Projenin planı:** `genel/` klasöründeki belgeleri oku. Önce taslak göster, hiçbir
+  dosyaya yazma: amaç, kapsam ve yapılmayacaklar, kısıtlar, teknoloji seçimi ve ana
+  başlıklar. Her ana başlık için ad, amaç, "bitti" ölçütü ve bağlı olduğu başlıklar.
+  Alt adımları yalnız gerekiyorsa yaz; ana başlıklar ayrıca planlanır. Onaylanınca:
+  ana başlıklar `PLAN.md` Aşamalar tablosuna (Aşama 0 "Bitti" olur); amaç ve kapsam
+  `PLAN.md`'ye ve yukarıdaki Proje özetine; kısıtlar aşağıdaki bölüme; teknoloji
+  seçimi gibi kararlar `KARARLAR.md`'ye.
+- **Bir ana başlığın planı** (ör. "2. başlığı planla"): `genel/` ve `asama-2/`
+  klasörlerini oku; başka aşamaların araştırmasını okuma. Başlığı adımlara böl
+  (2.1, 2.2…), taslak göster, onaylanınca `PLAN.md` adım tablosuna yaz.
+- **Ek:** Teknoloji belli olunca uygun ek varsa (`{{SABLON_KOKU}}\ekler` altındaki
+  klasörler; ör. Python için `python-windows`) kurmayı öner ve ne eklediğini söyle.
+  Onaylanırsa ekin `EK.md` dosyasındaki soruları sor, sonra şunu çalıştır:
+  `powershell -NoProfile -ExecutionPolicy Bypass -File "{{SABLON_KOKU}}\scripts\yeni-proje.ps1" -Hedef . -Ekler <ek adı>`
+  Betiğin raporladığı yer tutucuları doldur ve "Kod ve kontrol" bölümündeki test ve
+  biçim satırlarını ekin komutlarına yönlendir.
+- Plan modunda hazırlanan plan araç klasöründe kalır ve diğer araç göremez;
+  onaylanınca mutlaka yukarıdaki dosyalara yazılır.
 
 ## Oturum başında
 
@@ -36,8 +69,8 @@ ilk cevabında kullanıcıya söyle.
 
 ## Kod ve kontrol
 
-- Testler: `{{TEST_KOMUTU}}`
-- Biçim denetimi: `{{BICIM_KOMUTU}}`
+- Testler: henüz belirlenmedi (teknoloji seçilince yazılır).
+- Biçim denetimi: henüz belirlenmedi (teknoloji seçilince yazılır).
 - Kodlu bir adım, testi yazılıp geçmeden `PLAN.md`'de "Bitti" olmaz; testin dosyası
   adımın Test sütununa yazılır. Testler kodun modülüne göre ayrılır, adıma göre değil.
 - Her adımda **bütün** testler çalışır, yalnız yeni test değil. Önceki bir aşamanın
@@ -67,7 +100,8 @@ Amaç: sonraki aşamanın işi, biten aşamanın kodunu bozmasın.
 
 ## Projeye özel kısıtlar ve canlı işler
 
-{{KISITLAR}}
+Henüz belirlenmedi; planlamada yazılır (canlı işler, gerçek veri, gizli bilgi,
+dokunulmayacak dosyalar).
 
 ## Git (projeye özel)
 

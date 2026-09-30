@@ -4,28 +4,32 @@ Son güncelleme: {{TARIH}}
 
 ## Amaç
 
-{{AMAC}}
+İlk fikir (araştırmadan önce): {{AMAC}}
+
+Kesin amaç planlamadan sonra buraya yazılır.
 
 ## Kapsam ve yapılmayacaklar
 
-{{KAPSAM}}
+Araştırma ve planlamadan sonra yazılır.
 
 ## Aşamalar
 
 | # | Aşama | Durum | Etiket |
 |---|---|---|---|
-| 1 | {{ILK_ASAMA}} | Sürüyor | – |
+| 0 | Araştırma ve plan | Sürüyor | – |
 
 Biten aşama tek satıra indirilir; ayrıntısı `GUNLUK.md` ve `KARARLAR.md`'dedir.
-Etiket: aşama bitince atılan Git etiketi (`asama-1`); biten aşamanın kodu donmuştur.
-Plan modunda hazırlanan plan araç klasöründe kalır ve diğer araç göremez; onaylanınca
-aşamalar buraya, ilgili aşamanın adımları aşağıdaki tabloya yazılır.
+Etiket: aşama bitince atılan Git etiketi (`asama-1`); biten aşamanın dışa açık arayüzü
+ve testleri donmuştur. Plan modunda hazırlanan plan araç klasöründe kalır ve diğer araç
+göremez; onaylanınca ana başlıklar buraya, üzerinde çalışılan başlığın adımları aşağıdaki
+tabloya yazılır.
 
 ## Şu anki aşamanın adımları
 
 | Adım | İş | Durum | Test | Commit |
 |---|---|---|---|---|
-| 1.1 | {{ILK_ADIM}} | Bekliyor | – | – |
+| 0.1 | Araştırma sonuçlarını `docs/arastirma/genel/` klasörüne koy | Bekliyor | – | – |
+| 0.2 | Plan modunda araştırmaya göre projenin planını çıkar ve onayla | Bekliyor | – | – |
 
 Durum: Bekliyor · Sürüyor · Bitti · Bloke. Test sütununa adımı kanıtlayan test
 dosyası yazılır (kodsuz adımda `–`). Adım bitince Commit sütununa kısa hash yazılır.

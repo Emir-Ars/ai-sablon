@@ -1,6 +1,6 @@
 ---
 name: yeni-proje
-description: "Yeni ya da boş bir klasörde ai-sablon çalışma düzenini kurar: soru sorar, belgeleri kopyalar ve doldurur. Yalnız kullanıcı elle çağırınca çalışır: /yeni-proje ($yeni-proje). Şablon deposunda, ev klasöründe, Masaüstü kökünde ve Staj'da çalıştırma."
+description: "Yeni ya da boş bir klasörde ai-sablon çalışma düzenini kurar: proje adını ve ilk fikri sorar, belgeleri kopyalar, araştırma klasörünü açar. Yalnız kullanıcı elle çağırınca çalışır: /yeni-proje ($yeni-proje). Şablon deposunda, ev klasöründe, Masaüstü kökünde ve Staj'da çalıştırma."
 metadata:
   kaynak: "ai-sablon"
   surum: "__SABLON_SURUM__"
@@ -27,29 +27,26 @@ Bu skill yalnız elle çağrılır. Çalışma klasörü hedef projedir.
    projeye ekleme modu**: yalnız eksik dosyalar eklenir, var olan hiçbir dosyanın
    üzerine yazılmaz; `AGENTS.md`'ye Belge haritası ya da ek bölümü eklemeden önce
    kullanıcıdan onay al.
-4. **Soruları sor.** `references/sorular.md` dosyasını oku ve soruları **tek mesajda,
-   numaralı** sor (klasör adı, amaç, ekler, komutlar, kısıtlar, ilk adım).
-   Ek listesini `__SABLON_KOKU__\ekler` altındaki klasörlerden çıkar; seçilen ekin
-   `EK.md` dosyasındaki ek soruları da ekle.
-5. **Özet göster ve onay al.** Cevaplardan çıkan dosya listesini (yeni ve atlanacak
-   dosyalar) ve doldurulacak alanları göster. Boş cevap "henüz belirlenmedi" olur ve
-   Plan'ın "Açık kararlar" bölümüne eklenir. Onay gelmeden kopyalama.
+4. **Soruları sor.** `references/sorular.md` dosyasını oku ve yalnız oradaki iki soruyu
+   (proje adı, ilk fikir) **tek mesajda** sor. Ek, test komutu, kısıtlar ve ilk adım
+   sorulmaz: proje araştırmadan önce kurulur, bunlar planlamada belirlenir.
+5. **Özet göster ve onay al.** Oluşacak dosya listesini (yeni ve atlanacak dosyalar)
+   göster. Onay gelmeden kopyalama.
 6. **Kopyala.**
-   `powershell -NoProfile -ExecutionPolicy Bypass -File "__SABLON_KOKU__\scripts\yeni-proje.ps1" -Hedef . -Ekler <ek adları, virgülle> -ProjeAdi "<ad>" -Arac <Claude ya da Codex>`
-   Betik dosyaları kopyalar, `.sablon` ve `_claude` adlarını dönüştürür,
-   `{{PROJE_ADI}}`, `{{TARIH}}`, `{{TARIH_SAAT}}` ve `{{SABLON_SURUM}}` alanlarını
-   doldurur; var olan hiçbir dosyanın üzerine yazmaz; `.gitignore` satırlarını
-   tekrarsız ekler; `.claude/settings.json` varsa atlar ve raporlar. Raporu kullanıcıya
-   göster.
-7. **Alanları doldur.** Kalan `{{…}}` alanlarını cevaplara göre kendin doldur
-   (`references/sorular.md` hangi alanın hangi dosyada olduğunu söyler). Sonra:
+   `powershell -NoProfile -ExecutionPolicy Bypass -File "__SABLON_KOKU__\scripts\yeni-proje.ps1" -Hedef . -ProjeAdi "<ad>" -Arac <Claude ya da Codex>`
+   Betik dosyaları kopyalar, `.sablon`, `_claude` ve `_githooks` adlarını dönüştürür,
+   `{{PROJE_ADI}}`, `{{TARIH}}`, `{{TARIH_SAAT}}`, `{{SABLON_SURUM}}` ve
+   `{{SABLON_KOKU}}` alanlarını doldurur, boş `docs\arastirma\genel\` klasörünü açar;
+   var olan hiçbir dosyanın üzerine yazmaz. Raporu kullanıcıya göster.
+7. **Alanları doldur.** Kalan `{{AMAC}}` alanını ilk fikirle doldur (kullanıcının
+   sözleriyle; genişletme). Sonra:
    - `KARARLAR.md`'ye K-001 "Çalışma düzeni: ai-sablon" kaydı.
    - `GUNLUK.md`'ye ilk kayıt (kurulum). Saat: `Get-Date -Format 'yyyy-MM-dd HH:mm'`;
      araç adı "Claude Code" ya da "Codex" (model adı değil).
 8. **Doğrula.** Hedef klasörde:
    - Ağaç doğru mu: `AGENTS.md`, `CLAUDE.md`, `PLAN.md`, `KARARLAR.md`, `GUNLUK.md`,
      `DEVAM.md`, `.gitignore`, `.gitattributes`, `.claude\settings.json`,
-     `.ai\durum.ps1`, `.githooks\commit-msg`.
+     `.ai\durum.ps1`, `.githooks\commit-msg` ve `docs\arastirma\genel\` klasörü.
    - Kalan yer tutucu yok mu: `Select-String -Path (Get-ChildItem -Recurse -File -Force
      -Exclude *.ps1 | ForEach-Object FullName) -Pattern '\{\{'` boş dönmeli.
    - `.claude\settings.json` `ConvertFrom-Json` ile ayrışıyor mu.
@@ -61,7 +58,11 @@ Bu skill yalnız elle çağrılır. Çalışma klasörü hedef projedir.
    kullanıcı kendisi yönetir. Kullanıcıya şunları söyle:
    - Git'i kurunca bir kez `git config core.hooksPath .githooks` çalıştırsın (commit
      mesajında yapay zekâ imzası varsa kanca commit'i reddeder).
-   - Yeni oturum açsın, güven penceresini kabul etsin; Codex'te `$basla`.
+   - Araştırma sonuçlarını `docs\arastirma\genel\` klasörüne koysun (tam yolu ver).
+   - Sonra yeni oturum açsın, güven penceresini kabul etsin ve plan modunda
+     "araştırmaya göre projenin planını çıkar" desin (Codex'te önce `$basla`). Plan,
+     ana başlıklar ve ek seçimi projenin `AGENTS.md`'sindeki "Planlama ve araştırma"
+     kuralına göre yapılır.
 
 ## Bitti ölçütü
 
@@ -74,5 +75,5 @@ Bu skill yalnız elle çağrılır. Çalışma klasörü hedef projedir.
 - Onaysız kopyalama yapma.
 - Git'e dokunma: `git init`, `git add`, commit, push ve Git kimliği ayarı yok.
 - Şablon deposunda, ev klasöründe, Masaüstü kökünde ya da Staj'da çalışma.
-- `.venv` oluşturma, paket kurma (ek bunu komut olarak önerir).
-- Cevabı olmayan alanı uydurma; "henüz belirlenmedi" yaz ve Plan'a açık karar ekle.
+- `.venv` oluşturma, paket kurma; ek kurma (ek planlamada önerilir).
+- Plan, amaç ya da kapsam uydurma; kurulumda yalnız ilk fikir yazılır.

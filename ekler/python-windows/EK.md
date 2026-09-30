@@ -1,8 +1,9 @@
 # Ek: python-windows
 
 Windows'ta (PowerShell 5.1) `.venv` sanal ortamı olan bir Python projesi için
-test, biçim ve izin ayarlarını çekirdek şablona ekler. Bu dosya yalnız
-`yeni-proje` skill'i içindir; hedef projeye kopyalanmaz.
+test, biçim ve izin ayarlarını çekirdek şablona ekler. Ek, proje kurulduktan sonra
+planlamada teknoloji Python seçilince kurulur (projenin `AGENTS.md`'sindeki "Planlama
+ve araştırma" kuralı). Bu dosya yalnız o adım içindir; hedef projeye kopyalanmaz.
 
 ## Ne ekler
 
@@ -13,7 +14,7 @@ test, biçim ve izin ayarlarını çekirdek şablona ekler. Bu dosya yalnız
 | `gitignore.ek` | Satırlar hedef `.gitignore`'a tekrarsız eklenir. |
 | `dosyalar\` | İçindeki dosyalar yol yapısı korunarak hedefe kopyalanır, var olanın üzerine yazılmaz: `.github\workflows\ci.yml` (GitHub Actions: `black`, `flake8`, `pytest`) ve `.env.example`. |
 
-## Sorular (`yeni-proje` bunları çekirdek sorulara ekler)
+## Sorular (ek kurulmadan önce sorulur)
 
 1. Kaynak klasörleri (biçim ve stil denetimi bunlara uygulanır) [varsayılan: `app tests`].
    Boşlukla ayrılmış klasör adları; klasörler henüz yoksa da yazılabilir.

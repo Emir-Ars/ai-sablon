@@ -130,9 +130,9 @@ yedeklenip ezilmesine izin verir.
 ## Yeni proje kurma
 
 1. Yeni (ya da boş) bir klasör aç ve o klasörde Claude Code ya da Codex'i başlat.
-2. `/yeni-proje` yaz. Araç hedefi onaylatır, envanter çıkarır, soruları tek mesajda sorar (ad,
-   amaç, ekler, test ve biçim komutları, kısıtlar, ilk adım), özet gösterip onay
-   ister, sonra `yeni-proje.ps1` ile dosyaları kopyalar ve kalan alanları doldurur.
+2. `/yeni-proje` yaz. Araç yalnız **proje adını** ve **kafandaki ilk fikri** sorar, özet
+   gösterip onay ister, sonra dosyaları kurar ve boş `docs\arastirma\genel\` klasörünü açar.
+   Amaç, kapsam, teknoloji ve ek (örn. `python-windows`) araştırmadan sonra planlamada belirlenir.
 3. Şablon deposunun içi, ev klasörü, Masaüstü kökü ve Staj'a kurulum yapılmaz.
 4. Git'i sen kurarsın (şablon Git'e dokunmaz):
 
@@ -144,33 +144,39 @@ yedeklenip ezilmesine izin verir.
 
    Son satır `.githooks\commit-msg` kancasını etkinleştirir: mesajında yapay zekâ imzası
    (Co-Authored-By: Claude…) olan commit reddedilir. Bu kanca iki araçta da çalışır.
-5. Yeni oturum aç, güven penceresini kabul et; Codex'te `$basla`.
+5. Araştırma sonuçlarını koy, yeni oturum aç, güven penceresini kabul et ve planla (aşağıdaki akış).
 
-Betiği doğrudan da çalıştırabilirsin (yer tutucuları doldurmaz, onu araç yapar):
+Betiği doğrudan da çalıştırabilirsin (yer tutucuları doldurmaz, onu araç yapar). Ek, var
+olan projeye sonradan da kurulabilir (planlamada yapay zekâ bunu çalıştırır):
 
 ```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File <ai-sablon>\scripts\yeni-proje.ps1 -Hedef . -Ekler python-windows -ProjeAdi "Ad" -Arac Claude
+powershell -NoProfile -ExecutionPolicy Bypass -File <ai-sablon>\scripts\yeni-proje.ps1 -Hedef . -ProjeAdi "Ad" -Arac Claude
+powershell -NoProfile -ExecutionPolicy Bypass -File <ai-sablon>\scripts\yeni-proje.ps1 -Hedef . -Ekler python-windows
 ```
 
 `-Kontrol` yalnız envanter çıkarır. Var olan hiçbir dosyanın üzerine yazılmaz; `.gitignore`
-satırları ve ek bölümleri yalnız eklenir.
+satırları, ek bölümleri ve (ayar dosyası bu şablondan kurulduysa) ek izinleri yalnız eklenir.
 
 ## Bir projenin baştan sona akışı
 
 1. **Kurulum:** `/yeni-proje`, sonra Git (yukarıdaki 4. adım). GitHub'da boş ve özel bir repo aç
    (README/.gitignore/lisans işaretleme), adresini ekle: `git remote add origin <adres>`.
-2. **Araştırma:** Topladığın belgeleri `docs\arastirma\` klasörüne koy (klasörü sen açarsın;
-   gizli bilgi koyma).
-3. **Plan:** Plan modunda "`docs/arastirma/` klasöründeki belgeleri oku ve projenin tam planını
-   çıkar" de. Planı onaylayınca "bunu `PLAN.md`'ye yaz" de: ana başlıklar Aşamalar tablosuna,
-   ilk aşamanın alt başlıkları adım tablosuna (1.1, 1.2…) girer. Plan modundaki plan araç
-   klasöründe kalır; `PLAN.md`'ye yazılmazsa diğer araç göremez.
+2. **Araştırma:** İlk araştırmanın sonuçlarını `docs\arastirma\genel\` klasörüne koy (gizli
+   bilgi koyma). Sonradan bir ana başlık ya da adım için araştırma yaparsan yapay zekâya
+   "araştırma ekleyeceğim" de: o aşamanın klasörünü (`asama-N\`) açıp yolunu söyler; dosyanın
+   yerini verirsen kendisi kopyalar.
+3. **Plan:** Plan modunda "araştırmaya göre projenin planını çıkar" de. Yapay zekâ önce taslak
+   gösterir: amaç, kapsam, kısıtlar, teknoloji ve ana başlıklar (her birinin amacı, "bitti"
+   ölçütü, bağımlılığı). Onaylayınca `PLAN.md`, `AGENTS.md` ve `KARARLAR.md`'ye yazar; teknoloji
+   Python ise `python-windows` ekini kurmayı önerir.
+   Bir ana başlığa geçerken "2. başlığı planla" de: o başlığın araştırmasını okur, adımlara
+   (2.1, 2.2…) böler, onaylanınca `PLAN.md`'ye yazar.
 4. **Adım adım:** "1.1'i yap" de. Yapay zekâ 1.1'i baştan sona bitirir (kod, test, düzeltme),
    özetler, commit önerir ve durur. Onay verirsen commit eder; push için ayrıca sorar. 1.2'ye
    sen söylemeden geçmez. Yolda karar verirsen `/karar …`.
 5. **Aşama sonu:** Aşamanın bütün adımları bitince testler geçer, yapay zekâ commit ve
-   `git tag asama-1` önerir. Sonraki aşama için yine plan modunda o aşamanın adımlarını çıkar
-   ve `PLAN.md`'ye yazdır. Biten aşamanın dışa açık arayüzü donar; değişmesi gerekirse sana sorulur.
+   `git tag asama-1` önerir. Sonraki başlık için yine "N. başlığı planla". Biten aşamanın dışa
+   açık arayüzü donar; değişmesi gerekirse sana sorulur.
 6. **Oturum:** Başta `/basla`, sonda ya da araç değiştirirken `/devir`.
 
 ## Proje içindeki belge düzeni

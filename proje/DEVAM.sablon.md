@@ -9,7 +9,7 @@ taşınır.
 
 ## Şu an
 
-Proje şablondan kuruldu; henüz iş yapılmadı.
+Proje şablondan kuruldu; araştırma ve plan bekleniyor (Aşama 0).
 
 ## Commit edilmemiş değişiklikler
 
@@ -21,9 +21,11 @@ Proje şablondan kuruldu; henüz iş yapılmadı.
 
 ## Sıradaki iş
 
-1. {{ILK_ADIM}}
+1. Araştırma sonuçlarını `docs/arastirma/genel/` klasörüne koy.
+2. Plan modunda "araştırmaya göre projenin planını çıkar" de; onaylanınca plan
+   `PLAN.md`'ye yazılır.
 
-Nereden başla: `PLAN.md` adım 1.1.
+Nereden başla: `PLAN.md` adım 0.1.
 
 ## Kullanıcının çalıştıracakları
 

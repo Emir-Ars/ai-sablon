@@ -44,7 +44,7 @@ function MetinYaz([string]$Yol, [string]$Metin) {
 }
 
 function Doldur([string]$Metin) {
-    return $Metin.Replace('{{PROJE_ADI}}', $script:ProjeAdi).Replace('{{TARIH}}', $script:Tarih).Replace('{{TARIH_SAAT}}', $script:TarihSaat).Replace('{{SABLON_SURUM}}', $script:Surum)
+    return $Metin.Replace('{{PROJE_ADI}}', $script:ProjeAdi).Replace('{{TARIH}}', $script:Tarih).Replace('{{TARIH_SAAT}}', $script:TarihSaat).Replace('{{SABLON_SURUM}}', $script:Surum).Replace('{{SABLON_KOKU}}', $script:SablonKoku)
 }
 
 function EksikSatirlar([string[]]$Mevcut, [string[]]$Eklenecek) {
@@ -85,6 +85,7 @@ function PlanaEkle([string]$Kaynak, [string]$Rel, [string]$Tur) {
 
 # ---------------------------------------------------------------- girdiler
 $Kok = Split-Path -Parent $PSScriptRoot
+$script:SablonKoku = $Kok
 $script:Surum = SurumBul $Kok
 $simdi = Get-Date
 $script:Tarih = $simdi.ToString('yyyy-MM-dd', $script:Inv)
@@ -160,6 +161,10 @@ foreach ($ek in $ekVeri) {
 
 $agentsPlan = $script:Plan | Where-Object { $_.Rel -eq 'AGENTS.md' } | Select-Object -First 1
 $ayarPlan = $script:Plan | Where-Object { $_.Rel -eq '.claude\settings.json' } | Select-Object -First 1
+# Ayar dosyası bu şablondan kurulduysa (oturum başı kancası durum.ps1'i çağırır) sonradan eklenen ekin
+# izinleri birleştirilir; başka bir kaynaktan gelen ayar dosyasına dokunulmaz.
+$script:AyarBizim = $false
+if ($ayarPlan.Var) { $script:AyarBizim = (MetinOku $ayarPlan.Yol).Contains('.ai/durum.ps1') }
 $agentsMetni = ''
 $agentsIsaretli = $false
 if ($agentsPlan.Var) {
@@ -195,7 +200,11 @@ foreach ($p in $script:Plan) {
             else { $p.Durum = 'YENİ' }
         }
         'json' {
-            if ($p.Var) { $p.Durum = 'VAR'; $p.Not = 'atlanır; ek izinleri eklenmez' } else { $p.Durum = 'YENİ' }
+            if ($p.Var) {
+                $p.Durum = 'VAR'
+                if ($script:AyarBizim) { $p.Not = 'korunur; varsa ek izinleri eklenir' } else { $p.Not = 'atlanır; ek izinleri eklenmez' }
+            }
+            else { $p.Durum = 'YENİ' }
         }
         default {
             if ($p.Var) { $p.Durum = 'VAR'; $p.Not = 'atlanır' } else { $p.Durum = 'YENİ' }
@@ -223,7 +232,8 @@ foreach ($ek in $ekVeri) {
             try { $mevcutAllow = @(((MetinOku $ayarPlan.Yol) | ConvertFrom-Json).permissions.allow) } catch { }
             $eksikIzin = @($girdiler | Where-Object { $mevcutAllow -notcontains $_ })
             if ($eksikIzin.Count -eq 0) { $ekNotlari.Add("EK   $($ek.Ad): izinler settings.json'da zaten var (atlanır)") }
-            else { $ekNotlari.Add("EK   $($ek.Ad): .claude\settings.json var, dokunulmaz; eksik izinleri elle ekle: " + ($eksikIzin -join ' | ')) }
+            elseif ($script:AyarBizim) { $ekNotlari.Add("EK   $($ek.Ad): mevcut settings.json'a $($eksikIzin.Count) izin girdisi eklenecek") }
+            else { $ekNotlari.Add("EK   $($ek.Ad): .claude\settings.json ai-sablon'a ait değil, dokunulmaz; eksik izinleri elle ekle: " + ($eksikIzin -join ' | ')) }
         }
         else { $ekNotlari.Add("EK   $($ek.Ad): settings.json'a $($girdiler.Count) izin girdisi eklenecek") }
     }
@@ -339,6 +349,33 @@ if ($agentsPlan.Var -and $agentsIsaretli) {
     }
 }
 
+# Var olan, bu şablondan kurulmuş settings.json'a ek izinleri eklemek (yeni dosyada zaten eklendi).
+if ($ayarPlan.Var -and $script:AyarBizim) {
+    $once = MetinOku $ayarPlan.Yol
+    $m = $once
+    try {
+        foreach ($ek in $ekVeri) {
+            if (-not $ek.Izin) { continue }
+            $izinNesne = ($ek.Izin | ConvertFrom-Json).permissions
+            foreach ($liste in @($izinNesne.PSObject.Properties | ForEach-Object Name)) {
+                $m = JsonListeyeEkle $m $liste @($izinNesne.$liste)
+            }
+        }
+        if ($m -ne $once) {
+            MetinYaz $ayarPlan.Yol $m
+            $sonuclar.Add('EK EKLENDİ  .claude\settings.json (ek izinleri eklendi)')
+        }
+    }
+    catch { $sonuclar.Add("ATLANDI    .claude\settings.json (izinler eklenemedi: $($_.Exception.Message); elle ekle)") }
+}
+
+# Araştırma belgeleri için klasör (boş klasör Git'e girmez; kullanıcı ilk belgeyi koyunca girer).
+$arastirma = Join-Path $script:Hedef 'docs\arastirma\genel'
+if (($mod -eq 'yeni proje' -or $agentsIsaretli) -and -not (Test-Path -LiteralPath $arastirma)) {
+    New-Item -ItemType Directory -Path $arastirma -Force | Out-Null
+    $sonuclar.Add('OLUŞTURULDU docs\arastirma\genel\ (boş klasör)')
+}
+
 Write-Output ''
 Write-Output 'Sonuç:'
 foreach ($s in $sonuclar) { Write-Output ('  ' + $s) }
@@ -360,7 +397,15 @@ $basla = '/basla (Claude) ya da $basla (Codex)'
 if ($aracAdi -eq 'Claude') { $basla = '/basla' } elseif ($aracAdi -eq 'Codex') { $basla = '$basla' }
 Write-Output ''
 Write-Output 'Sonraki adım:'
-Write-Output '  1. Kalan yer tutucuları doldur; KARARLAR.md''ye K-001, GUNLUK.md''ye ilk kaydı yaz.'
-Write-Output '  2. Git''i (git init, commit) sen yönetirsin; şablon Git''e dokunmaz.'
-Write-Output "  3. Yeni oturum aç, güven penceresini kabul et, sonra $basla yaz."
+if ($mod -eq 'yeni proje') {
+    Write-Output '  1. Kalan yer tutucuları doldur; KARARLAR.md''ye K-001, GUNLUK.md''ye ilk kaydı yaz.'
+    Write-Output '  2. Git''i (git init, commit) sen yönetirsin; şablon Git''e dokunmaz.'
+    Write-Output '  3. Araştırma sonuçlarını docs\arastirma\genel\ klasörüne koy.'
+    Write-Output "  4. Yeni oturum aç, güven penceresini kabul et; plan modunda 'araştırmaya göre projenin planını çıkar' de."
+}
+else {
+    Write-Output '  1. Kalan yer tutucuları doldur (ek soruları: ekin EK.md dosyası).'
+    Write-Output "  2. AGENTS.md 'Kod ve kontrol' bölümündeki test ve biçim satırlarını ekin komutlarına yönlendir."
+    Write-Output "  3. Gerekirse yeni oturum aç ($basla)."
+}
 exit 0
