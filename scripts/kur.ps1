@@ -32,7 +32,37 @@ function SurumBul([string]$Kok) {
 
 # Skill ve kural dosyalarında kök yol ile sürüm kurulumda doldurulur.
 function IcerikUret([string]$Metin, [string]$Kok, [string]$Surum) {
-    return $Metin.Replace('__SABLON_KOKU__', $Kok).Replace('__SABLON_SURUM__', $Surum)
+    $m = $Metin.Replace('__SABLON_KOKU__', $Kok).Replace('__SABLON_SURUM__', $Surum)
+    # Kişisel değerler (yerel.json) şablona yazılmaz, kurulumda doldurulur.
+    if ($script:KisiselDegerler) {
+        foreach ($k in $script:KisiselDegerler.Keys) { $m = $m.Replace($k, $script:KisiselDegerler[$k]) }
+    }
+    return $m
+}
+
+# yerel.json (Git dışı): kullanıcı adı, kısa tanıtım, korunan klasörler. Yoksa ad Git ayarından alınır.
+function KisiselOku([string]$Kok) {
+    $y = [pscustomobject]@{ kullanici = ''; tanitim = ''; korunanKlasorler = @() }
+    $yol = Join-Path $Kok 'yerel.json'
+    if (Test-Path -LiteralPath $yol -PathType Leaf) {
+        $o = [System.IO.File]::ReadAllText($yol) | ConvertFrom-Json
+        if ($o.kullanici) { $y.kullanici = [string]$o.kullanici }
+        if ($o.tanitim) { $y.tanitim = [string]$o.tanitim }
+        if ($o.korunanKlasorler) { $y.korunanKlasorler = @($o.korunanKlasorler | ForEach-Object { [string]$_ }) }
+    }
+    if (-not $y.kullanici) {
+        $g = & git config --global --get user.name 2>$null
+        if ($g) { $y.kullanici = [string]$g } else { $y.kullanici = 'kullanıcı' }
+    }
+    return $y
+}
+
+function KisiselDegerler($Y) {
+    $tanim = $Y.kullanici
+    if ($Y.tanitim) { $tanim = "$($Y.kullanici), $($Y.tanitim)" }
+    $korunan = 'yok'
+    if (@($Y.korunanKlasorler).Count -gt 0) { $korunan = (@($Y.korunanKlasorler) | ForEach-Object { '`' + $_ + '`' }) -join ', ' }
+    return @{ '__KULLANICI_TANIMI__' = $tanim; '__KULLANICI__' = $Y.kullanici; '__KORUNAN_KLASORLER__' = $korunan }
 }
 
 # AYNI/FARKLI karşılaştırması sürüm satırlarından etkilenmesin (her commit'te sürüm değişir).
@@ -58,7 +88,7 @@ function Korumali([string]$Yol) {
 }
 
 function KuralMetni([string]$Kok, [string]$Surum) {
-    $m = [System.IO.File]::ReadAllText((Join-Path $Kok 'genel\KURALLAR.md'))
+    $m = IcerikUret ([System.IO.File]::ReadAllText((Join-Path $Kok 'genel\KURALLAR.md'))) $Kok $Surum
     if (-not $m.EndsWith("`n")) { $m += "`n" }
     return $m + "`n<!-- ai-sablon: KURALLAR $Surum -->`n"
 }
@@ -159,6 +189,12 @@ if (-not (Test-Path -LiteralPath (Join-Path $Kok 'genel\KURALLAR.md'))) {
     Write-Output "HATA: $Kok\genel\KURALLAR.md bulunamadı."
     exit 1
 }
+try { $Kisisel = KisiselOku $Kok }
+catch {
+    Write-Output "HATA: yerel.json okunamadı (geçerli JSON değil): $($_.Exception.Message)"
+    exit 1
+}
+$script:KisiselDegerler = KisiselDegerler $Kisisel
 
 $isler = New-Object System.Collections.Generic.List[object]
 
@@ -188,6 +224,9 @@ if ($Kontrol) { $baslik = '[kur] Kontrol (hiçbir şey yazılmaz)' }
 Write-Output $baslik
 Write-Output "Kök   : $Kok"
 Write-Output "Sürüm : $Surum"
+$kaynakMetni = 'Git ayarı'
+if (Test-Path -LiteralPath (Join-Path $Kok 'yerel.json')) { $kaynakMetni = 'yerel.json' }
+Write-Output "Kişi  : $($script:KisiselDegerler['__KULLANICI_TANIMI__']) · korunan: $($script:KisiselDegerler['__KORUNAN_KLASORLER__']) ($kaynakMetni)"
 Write-Output ''
 foreach ($i in $isler) {
     $not = ''

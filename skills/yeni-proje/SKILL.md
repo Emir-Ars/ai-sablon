@@ -1,6 +1,6 @@
 ---
 name: yeni-proje
-description: "Yeni ya da boş bir klasörde ai-sablon çalışma düzenini kurar: proje adını ve ilk fikri sorar, belgeleri kopyalar, araştırma klasörünü açar. Yalnız kullanıcı elle çağırınca çalışır: /yeni-proje ($yeni-proje). Şablon deposunda, ev klasöründe, Masaüstü kökünde ve Staj'da çalıştırma."
+description: "Yeni ya da boş bir klasörde ai-sablon çalışma düzenini kurar: proje adını ve ilk fikri sorar, belgeleri kopyalar, araştırma klasörünü açar. Yalnız kullanıcı elle çağırınca çalışır: /yeni-proje ($yeni-proje). Şablon deposunda, ev klasöründe, Masaüstü kökünde ve korunan klasörlerde çalıştırma."
 metadata:
   kaynak: "ai-sablon"
   surum: "__SABLON_SURUM__"
@@ -19,7 +19,8 @@ Bu skill yalnız elle çağrılır. Çalışma klasörü hedef projedir.
    `False` ise kullanıcıdan şablon deposunun yolunu iste ve dur.
 2. **Hedefi onaylat.** Hedef klasör olarak geçerli klasörü göster ve kullanıcıya
    onaylat. Şunlar **reddedilir**: şablon deposunun kendisi (`__SABLON_KOKU__`), ev
-   klasörü, Masaüstü kökü, `C:\Users\Emir\Desktop\Staj`. Reddedersen nedenini söyle ve dur.
+   klasörü, Masaüstü kökü ve kullanıcının korunan klasörleri (__KORUNAN_KLASORLER__;
+   şablon kökündeki `yerel.json`). Reddedersen nedenini söyle ve dur.
 3. **Envanter al.**
    `powershell -NoProfile -ExecutionPolicy Bypass -File "__SABLON_KOKU__\scripts\yeni-proje.ps1" -Hedef . -Kontrol`
    Çıktı her hedef dosya için YENİ ya da VAR yazar ve `AGENTS.md` içinde ai-sablon
@@ -74,6 +75,6 @@ Bu skill yalnız elle çağrılır. Çalışma klasörü hedef projedir.
 - Var olan dosyanın üzerine yazma; `.claude/settings.json` varsa dokunma.
 - Onaysız kopyalama yapma.
 - Git'e dokunma: `git init`, `git add`, commit, push ve Git kimliği ayarı yok.
-- Şablon deposunda, ev klasöründe, Masaüstü kökünde ya da Staj'da çalışma.
+- Şablon deposunda, ev klasöründe, Masaüstü kökünde ya da korunan klasörlerde çalışma.
 - `.venv` oluşturma, paket kurma; ek kurma (ek planlamada önerilir).
 - Plan, amaç ya da kapsam uydurma; kurulumda yalnız ilk fikir yazılır.

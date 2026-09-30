@@ -41,8 +41,8 @@ sonrası yazı) kararın kendisidir.
      adım ya da aşama satırını güncelle.
    - Devir notunda "Bekleyen kararlar" kısmını düzelt.
    - Güncellenen her belgeyi mesajda bir cümleyle söyle.
-6. **Eski düzenli proje.** Haritada Kararlar dosyası yoksa (Staj'da `proje_plani.md`
-   Bölüm 8 gibi) projenin kendi karar tablosuna ya da bölümüne, onun biçimiyle yaz.
+6. **Eski düzenli proje.** Haritada Kararlar dosyası yoksa (ör. `proje_plani.md`
+   içinde bir karar bölümü) projenin kendi karar tablosuna ya da bölümüne, onun biçimiyle yaz.
    `KARARLAR.md` oluşturma.
 
 ## Bitti ölçütü

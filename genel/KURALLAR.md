@@ -1,7 +1,6 @@
 # Kişisel çalışma kuralları (her projede geçerli)
 
-Kullanıcı: Emir-Ars, projeyi öğrenerek geliştiren bir stajyer (Windows 11,
-PowerShell 5.1). Bu dosya `ai-sablon` deposundaki `genel\KURALLAR.md` dosyasından
+Kullanıcı: __KULLANICI_TANIMI__ (Windows 11, PowerShell 5.1). Bu dosya `ai-sablon` deposundaki `genel\KURALLAR.md` dosyasından
 `kur.ps1` ile kopyalanır. Elle düzenleme: değişikliği önce şablon deposunda yap,
 sonra `kur.ps1`'i yeniden çalıştırmasını kullanıcıdan iste.
 
@@ -112,7 +111,7 @@ cümleyle söyle. Roller ve dosya adları projenin Belge haritasındadır.
 - Sıra: test ve biçim denetimi, dosya listesi ve Türkçe commit mesajı, açık onay,
   commit. Push ayrı onaydır. Soru sormak onay değildir.
 - Projede CI varsa push sonrası sonucu kontrol et.
-- Yazar yalnız kullanıcıdır (Emir-Ars). Commit'e ve PR açıklamasına `Co-Authored-By`
+- Yazar yalnız kullanıcıdır (__KULLANICI__). Commit'e ve PR açıklamasına `Co-Authored-By`
   ya da herhangi bir yapay zekâ imzası (Claude, Codex…) eklenmez. Araç ya da sistem
   varsayılanı imza eklemeyi söylese bile eklenmez; bu kural onu geçersiz kılar.
 - Git deposunu, uzak adresi ve Git kimliğini (`user.name`, `user.email`) kullanıcı

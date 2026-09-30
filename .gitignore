@@ -1,2 +1,6 @@
 *.yedek-*
 .claude/settings.local.json
+# Kişisel ayar (ad, korunan klasörler); örneği: yerel.ornek.json
+yerel.json
+# Şablonun kendi araştırma raporları yalnız yerelde tutulur
+docs/arastirma/

@@ -15,7 +15,7 @@ sonrası yazı) boş olabilir; varsa devir notuna eklenecek bir uyarıdır.
 
 1. **Belge haritasını bul.** Projenin `AGENTS.md`'sindeki "Belge haritası" tablosundan
    Plan, Kararlar, Günlük ve Devir notu dosyalarının adlarını oku. Harita yoksa
-   `AGENTS.md`'de adı geçen dosyaları kullan (Staj gibi eski düzende `proje_plani.md`
+   `AGENTS.md`'de adı geçen dosyaları kullan (eski düzenli projede ör. `proje_plani.md`
    ve `DEVAM.md`). Eski düzenli projede **yeni dosya oluşturma**.
 2. **Durumu topla.** `git --no-optional-locks status --porcelain`,
    `git --no-optional-locks log --oneline -5`, `git --no-optional-locks diff --stat`.
@@ -25,8 +25,8 @@ sonrası yazı) boş olabilir; varsa devir notuna eklenecek bir uyarıdır.
    kullanıcıya sor, tahmin etme.
 4. **Saati al.** `Get-Date -Format 'yyyy-MM-dd HH:mm'`. Saati kendin tahmin etme.
 5. **Devir notunu baştan yaz** (yama yapma). Başlıklar:
-   - Projenin `AGENTS.md`'si Devir notu için kendi başlıklarını tanımlıyorsa (Staj'da
-     olduğu gibi) onları kullan; not zaten başka bir tarih biçimi kullanıyorsa o
+   - Projenin `AGENTS.md`'si Devir notu için kendi başlıklarını tanımlıyorsa (eski
+     düzenli projelerde olduğu gibi) onları kullan; not zaten başka bir tarih biçimi kullanıyorsa o
      biçimi koru.
    - Tanımlamıyorsa şu iskeleti kullan: `Son güncelleme: yyyy-MM-dd HH:mm · Yazan:
      <Claude Code ya da Codex>`, `Son commit: <hash> · Dal · Push`, sonra başlıklar:

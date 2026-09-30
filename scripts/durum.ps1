@@ -43,7 +43,7 @@ function GitCalistir([string[]]$Arguman) {
     return @($c | Where-Object { $_ -ne '' })
 }
 
-# İki biçim okunur: yeni "2026-09-29 20:20" ve eski Staj biçimi "29 Eylül 2026, 20:20".
+# İki biçim okunur: yeni "2026-09-29 20:20" ve eski düzenli projelerin biçimi "29 Eylül 2026, 20:20".
 # Önce "güncelleme" ya da "tarih" geçen satırlara bakılır; başka tarihler yanıltmasın.
 function TarihOku([string[]]$Satirlar) {
     $aylar = @{

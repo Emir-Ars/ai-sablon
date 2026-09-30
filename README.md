@@ -3,8 +3,13 @@
 Claude Code ve Codex'i dönüşümlü kullanırken bilgi kaybolmasın diye kurulan çalışma düzeninin
 şablonu: kişisel kurallar, belge şablonları, kısayollar (skill) ve betikler.
 
-> **Durum:** kullanıma hazır. Kurulum yapıldı, `/yeni-proje` bir deneme projesinde çalıştı.
-> Git'i (git init, commit, push) kullanıcı yönetir; şablon Git'e dokunmaz.
+> **Kimin için:** Claude Code ve/veya OpenAI Codex kullanan, **Windows + PowerShell 5.1**
+> üzerinde çalışan, Türkçe konuşan geliştiriciler. Kurallar, belgeler ve yapay zekâyla iletişim
+> Türkçedir. Git'i (git init, commit, push) kullanıcı yönetir; şablon Git'e dokunmaz.
+>
+> **Uyarı:** `scripts\kur.ps1` bilgisayarındaki genel yapay zekâ ayarlarına yazar
+> (`~\.claude`, `~\.codex`, `~\.agents`). Değiştirdiği her şeyi önce yedekler; yine de önce
+> `-Kontrol` ile ne yapacağını gör. Kendi sorumluluğunda kullan.
 
 ## Ne işe yarar
 
@@ -16,7 +21,7 @@ Claude Code ve Codex'i dönüşümlü kullanırken bilgi kaybolmasın diye kurul
 ## Üç yer
 
 1. **Bu depo** (`Desktop\ai-sablon`): ana kopya. Geliştirme yalnız burada yapılır.
-2. **Genel klasörler** (`C:\Users\Emir\.claude`, `C:\Users\Emir\.codex`): `kur.ps1` kişisel
+2. **Genel klasörler** (`~\.claude`, `~\.codex`; `~` = `C:\Users\<ad>`): `kur.ps1` kişisel
    kuralları ve kısayolları buraya kopyalar. Araçlar bu dosyaları her projede okur.
 3. **Her yeni proje:** klasörde `/yeni-proje` (Codex'te `$yeni-proje`).
 
@@ -27,10 +32,9 @@ ai-sablon\
 ├─ README.md               bu dosya
 ├─ AGENTS.md               bu depoda çalışan araca talimat (.sablon dosyaları talimat değildir)
 ├─ ARAC_GECISI.md          Claude ↔ Codex geçiş rehberi (kullanıcı için tek kopya)
-├─ .gitignore              yedek dosyaları ve yerel ayar
+├─ .gitignore              yedek dosyaları, yerel.json ve yerel ayar
 ├─ .gitattributes          şablondaki Git kancası LF kalsın
-├─ docs\
-│  └─ arastirma\           şablonun değerlendirmesi (3 rapor) ve planlama araştırması (planlama-*.md, 4 rapor)
+├─ yerel.ornek.json        kişisel ayar örneği; kopyası yerel.json (Git'e girmez)
 ├─ genel\
 │  └─ KURALLAR.md          kişisel kuralların TEK kaynağı
 ├─ proje\                  çekirdek proje şablonu (adlar hedefte dönüşür)
@@ -86,6 +90,10 @@ kopyalarken dönüştürür: `.sablon` silinir, `_claude` → `.claude`, `_githo
 
 `scripts\kur.ps1` bu bilgisayarın genel klasörlerine yazar; **kullanıcı çalıştırır**.
 
+0. Depoyu klonla ve kişisel ayarını yaz: `yerel.ornek.json`'u `yerel.json` adıyla kopyala,
+   içine GitHub kullanıcı adını, kısa bir tanıtımı ve yapay zekânın asla yazmayacağı
+   klasörleri (`korunanKlasorler`) yaz. `yerel.json` Git'e girmez. Dosya yoksa ad
+   `git config --global user.name`'den alınır, korunan klasör olmaz.
 1. Önce kuru çalışma (hiçbir şey yazmaz):
 
    ```powershell
@@ -133,12 +141,13 @@ yedeklenip ezilmesine izin verir.
 2. `/yeni-proje` yaz. Araç yalnız **proje adını** ve **kafandaki ilk fikri** sorar, özet
    gösterip onay ister, sonra dosyaları kurar ve boş `docs\arastirma\genel\` klasörünü açar.
    Amaç, kapsam, teknoloji ve ek (örn. `python-windows`) araştırmadan sonra planlamada belirlenir.
-3. Şablon deposunun içi, ev klasörü, Masaüstü kökü ve Staj'a kurulum yapılmaz.
+3. Şablon deposunun içi, ev klasörü, Masaüstü kökü ve `yerel.json`'daki korunan klasörlere
+   kurulum yapılmaz.
 4. Git'i sen kurarsın (şablon Git'e dokunmaz):
 
    ```powershell
    git init -b main
-   git config user.email "Emir-Ars@users.noreply.github.com"
+   git config user.email "<kullanici-adin>@users.noreply.github.com"
    git config core.hooksPath .githooks
    ```
 
@@ -176,9 +185,7 @@ satırları, ek bölümleri ve (ayar dosyası bu şablondan kurulduysa) ek izinl
    İstersen planı yeni bir oturumda ya da Codex'te eleştirt (aynı sohbette eleştirmek işe yaramaz).
    Bir ana başlığa geçerken "2. başlığı planla" de: varsayımları ve "Sürprizler"i günceller, o
    başlığın araştırmasını okur, adımlara (2.1, 2.2…) böler, onaylanınca `PLAN.md`'ye yazar.
-   Uygulama plandan saparsa yapay zekâ durur ve planın güncellenmesini önerir.
-   Planlama kuralının dayandığı araştırmalar: `docs\arastirma\planlama-*.md`.
-4. **Adım adım:** "1.1'i yap" de. Yapay zekâ 1.1'i baştan sona bitirir (kod, test, düzeltme),
+   Uygulama plandan saparsa yapay zekâ durur ve planın güncellenmesini önerir.4. **Adım adım:** "1.1'i yap" de. Yapay zekâ 1.1'i baştan sona bitirir (kod, test, düzeltme),
    özetler, commit önerir ve durur. Onay verirsen commit eder; push için ayrıca sorar. 1.2'ye
    sen söylemeden geçmez. Yolda karar verirsen `/karar …`.
 5. **Aşama sonu:** Aşamanın bütün adımları bitince testler geçer, yapay zekâ commit ve

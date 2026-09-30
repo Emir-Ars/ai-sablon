@@ -100,8 +100,16 @@ $ev = $HOME.TrimEnd('\')
 if ($script:Hedef -ieq $Kok.TrimEnd('\') -or $script:Hedef.StartsWith($Kok.TrimEnd('\') + '\', [StringComparison]::OrdinalIgnoreCase)) { Hata 'hedef şablon deposunun kendisi ya da içi olamaz.' }
 if ($script:Hedef -ieq $ev) { Hata 'hedef ev klasörü olamaz.' }
 if ($script:Hedef -ieq $masaustu) { Hata 'hedef Masaüstü kökü olamaz; bir alt klasör seç.' }
-$stajYolu = Join-Path $masaustu 'Staj'
-if ($script:Hedef -ieq $stajYolu -or $script:Hedef.StartsWith($stajYolu + '\', [StringComparison]::OrdinalIgnoreCase)) { Hata 'Staj eski düzenli bir proje; buraya kurulum yapılmaz.' }
+# Kullanıcının korunan klasörleri (ör. eski düzenli bir proje) yerel.json'da tutulur; şablona yazılmaz.
+$yerelYol = Join-Path $Kok 'yerel.json'
+if (Test-Path -LiteralPath $yerelYol -PathType Leaf) {
+    try { $yerel = (MetinOku $yerelYol) | ConvertFrom-Json } catch { Hata "yerel.json geçerli JSON değil: $($_.Exception.Message)" }
+    foreach ($k in @($yerel.korunanKlasorler)) {
+        if (-not $k) { continue }
+        $kk = ([string]$k).TrimEnd('\')
+        if ($script:Hedef -ieq $kk -or $script:Hedef.StartsWith($kk + '\', [StringComparison]::OrdinalIgnoreCase)) { Hata "hedef korunan bir klasörde ($kk; yerel.json); buraya kurulum yapılmaz." }
+    }
+}
 if ($script:Hedef.Length -le 3) { Hata 'hedef sürücü kökü olamaz.' }
 
 $script:ProjeAdi = $ProjeAdi.Trim()
