@@ -14,7 +14,6 @@ belirlenmedi" olur ve `PLAN.md`'nin "Açık kararlar" bölümüne
 | 5 | Biçim denetimi komutu? | – | `{{BICIM_KOMUTU}}` (`AGENTS.md`) |
 | 6 | Projeye özel kısıtlar? (canlı işler, veri, gizli bilgi, dokunulmayacak dosyalar) | – | `{{KISITLAR}}` (`AGENTS.md`) |
 | 7 | İlk aşama ve ilk adım ne? | – | `{{ILK_ASAMA}}` (`PLAN.md`); `{{ILK_ADIM}}` (`PLAN.md`, `DEVAM.md`) |
-| 8 | `git init -b main` çalıştırılsın mı? | [evet] | (yalnız karar; komut yine onay ister) |
 
 ## Ek soruları
 

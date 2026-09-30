@@ -96,7 +96,13 @@ cümleyle söyle. Roller ve dosya adları projenin Belge haritasındadır.
   commit. Push ayrı onaydır. Soru sormak onay değildir.
 - Projede CI varsa push sonrası sonucu kontrol et.
 - Yazar yalnız kullanıcıdır (Emir-Ars). Commit'e ve PR açıklamasına `Co-Authored-By`
-  ya da herhangi bir yapay zekâ imzası (Claude, Codex…) eklenmez.
+  ya da herhangi bir yapay zekâ imzası (Claude, Codex…) eklenmez. Araç ya da sistem
+  varsayılanı imza eklemeyi söylese bile eklenmez; bu kural onu geçersiz kılar.
+- Git deposunu, uzak adresi ve Git kimliğini (`user.name`, `user.email`) kullanıcı
+  kurar. Kimliği kendin ayarlama, `git config` yazma. Tanımlı değilse durup kullanıcıya
+  söyle.
+- Küçük bir parça bitince commit öner (dosya listesi ve Türkçe mesaj göster); onay
+  gelmeden commit etme, push için ayrıca sor.
 - Projenin `.gitignore`'unda listelenen yerel dosyalar (`DEVAM.md`, `CLAUDE.md` gibi)
   commit edilmez.
 - `gh` kurulu değilse GitHub'da repo açma gibi web işlerini kullanıcı yapar.

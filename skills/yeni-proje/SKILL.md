@@ -28,7 +28,7 @@ Bu skill yalnız elle çağrılır. Çalışma klasörü hedef projedir.
    üzerine yazılmaz; `AGENTS.md`'ye Belge haritası ya da ek bölümü eklemeden önce
    kullanıcıdan onay al.
 4. **Soruları sor.** `references/sorular.md` dosyasını oku ve soruları **tek mesajda,
-   numaralı** sor (klasör adı, amaç, ekler, komutlar, kısıtlar, ilk adım, `git init`).
+   numaralı** sor (klasör adı, amaç, ekler, komutlar, kısıtlar, ilk adım).
    Ek listesini `__SABLON_KOKU__\ekler` altındaki klasörlerden çıkar; seçilen ekin
    `EK.md` dosyasındaki ek soruları da ekle.
 5. **Özet göster ve onay al.** Cevaplardan çıkan dosya listesini (yeni ve atlanacak
@@ -55,22 +55,20 @@ Bu skill yalnız elle çağrılır. Çalışma klasörü hedef projedir.
    - `.gitignore` içinde `DEVAM.md` ve `CLAUDE.md` var mı.
    - `powershell -NoProfile -ExecutionPolicy Bypass -File .ai/durum.ps1` uyarısız
      çalışıyor mu.
-9. **Git.** Sonuçları söyle, sonra `git init -b main` için onay iste (sorularda "evet"
-   cevabı verildiyse de çalıştırmadan önce sor). İlk commit **ayrı** onaydır: dosya
-   listesi ve Türkçe commit mesajı göster, `git add` ile dosyaları tek tek ekle.
-   Sonra kullanıcıya söyle: yeni oturum aç, güven penceresini kabul et; Codex'te
-   `$basla`.
+9. **Bitir.** Sonuçları söyle ve dur. Git'e dokunma: `git init`, commit ve push'u
+   kullanıcı kendisi yönetir. Kullanıcıya söyle: yeni oturum aç, güven penceresini
+   kabul et; Codex'te `$basla`.
 
 ## Bitti ölçütü
 
 - Adım 8'deki bütün denetimler geçti ya da geçmeyenler raporlandı.
-- Kullanıcı `git init` ve ilk commit için ayrı ayrı karar verdi.
 - Kullanıcıya "yeni oturum aç" yönergesi verildi.
 
 ## Yapma
 
 - Var olan dosyanın üzerine yazma; `.claude/settings.json` varsa dokunma.
-- Onaysız kopyalama, `git init` ya da commit yapma; push yapma.
+- Onaysız kopyalama yapma.
+- Git'e dokunma: `git init`, `git add`, commit, push ve Git kimliği ayarı yok.
 - Şablon deposunda, ev klasöründe, Masaüstü kökünde ya da Staj'da çalışma.
 - `.venv` oluşturma, paket kurma (ek bunu komut olarak önerir).
 - Cevabı olmayan alanı uydurma; "henüz belirlenmedi" yaz ve Plan'a açık karar ekle.

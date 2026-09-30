@@ -342,6 +342,6 @@ if ($aracAdi -eq 'Claude') { $basla = '/basla' } elseif ($aracAdi -eq 'Codex') {
 Write-Output ''
 Write-Output 'Sonraki adım:'
 Write-Output '  1. Kalan yer tutucuları doldur; KARARLAR.md''ye K-001, GUNLUK.md''ye ilk kaydı yaz.'
-Write-Output '  2. git init -b main ve ilk commit için ayrı ayrı onay ver.'
+Write-Output '  2. Git''i (git init, commit) sen yönetirsin; şablon Git''e dokunmaz.'
 Write-Output "  3. Yeni oturum aç, güven penceresini kabul et, sonra $basla yaz."
 exit 0

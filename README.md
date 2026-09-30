@@ -3,8 +3,8 @@
 Claude Code ve Codex'i dönüşümlü kullanırken bilgi kaybolmasın diye kurulan çalışma düzeninin
 şablonu: kişisel kurallar, belge şablonları, kısayollar (skill) ve betikler.
 
-> **Durum:** ilk sürüm. Şablonlar ve betikler yazıldı; kurulum ve gerçek proje denemeleri
-> sürüyor.
+> **Durum:** kullanıma hazır. Kurulum yapıldı, `/yeni-proje` bir deneme projesinde çalıştı.
+> Git'i (git init, commit, push) kullanıcı yönetir; şablon Git'e dokunmaz.
 
 ## Ne işe yarar
 
@@ -118,7 +118,7 @@ yedeklenip ezilmesine izin verir.
 
 1. Yeni (ya da boş) bir klasör aç ve o klasörde Claude Code ya da Codex'i başlat.
 2. `/yeni-proje` yaz. Araç hedefi onaylatır, envanter çıkarır, soruları tek mesajda sorar (ad,
-   amaç, ekler, test ve biçim komutları, kısıtlar, ilk adım, `git init`), özet gösterip onay
+   amaç, ekler, test ve biçim komutları, kısıtlar, ilk adım), özet gösterip onay
    ister, sonra `yeni-proje.ps1` ile dosyaları kopyalar ve kalan alanları doldurur.
 3. Şablon deposunun içi, ev klasörü, Masaüstü kökü ve Staj'a kurulum yapılmaz.
 4. Yeni oturum aç, güven penceresini kabul et; Codex'te `$basla`.
