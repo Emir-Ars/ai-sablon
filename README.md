@@ -240,7 +240,7 @@ AI:   Dal main, son commit abc123. Şu an: Aşama 1, adım 1.2 (bekliyor).
       Bekleyen karar yok. Onayını bekliyorum.
 Sen:  1.2'yi yap
 AI:   (kodu yazar, testleri çalıştırır, hatayı düzeltir)
-      1.2 bitti: ... Commit önerisi: 3 dosya, mesaj "1.2: ...". Onaylıyor musun?
+      1.2 bitti: ... Commit önerisi: 3 dosya (GUNLUK.md dahil), mesaj "1.2: ...". Onaylıyor musun?
 Sen:  evet
 AI:   Commit atıldı. Push edeyim mi?
 Sen:  evet
@@ -253,6 +253,7 @@ Sen:  /devir
 | ✋ Kontrol noktaları | Adım ortasında yalnızca şunlarda sorar: plan dışı iş, yeni paket, `.env`, biten aşamanın arayüzü, düzeltemediği test, geri alınması zor komut |
 | ✅ Commit ve push | Dosya listesi + Türkçe mesaj gösterilir, **onayınla** commit; push için ayrıca sorulur |
 | 🧪 Testler | Her adımda **bütün** testler çalışır; eski aşamanın testi kırılırsa adım bitmiş sayılmaz |
+| 📓 Günlük | Adım bitince yapay zekâ `GUNLUK.md`'ye kayıt yazar; sorun çıktıysa hata mesajı ve çözümü, vazgeçilen yol varsa nedeni. Aynı hata tekrar çıkınca önce orada arar |
 | 📝 Kararlar | Yolda bir karar verirsen `/karar Şunu seçtik, çünkü …` |
 
 ---
@@ -297,7 +298,7 @@ Ayrıntılı rehber ve kısayollar görünmezse yedek mesajlar: 👉 [ARAC_GECIS
 | 📜 `AGENTS.md` | ✅ | Yalnızca bu projenin kuralları, belge haritası, planlama kuralı |
 | 🗺️ `PLAN.md` | ✅ | Başarı ölçütleri, aşamalar, şu anki adımlar, varsayımlar, sürprizler (~100-150 satır) |
 | ⚖️ `KARARLAR.md` | ✅ | Gerekçeli kararlar (`K-001`…); yalnızca eklenir |
-| 📓 `GUNLUK.md` | ✅ | Biten adım ve kararların kısa kaydı |
+| 📓 `GUNLUK.md` | ✅ | Biten adım ve kararların kaydı; çıkan sorunlar ve çözümleri |
 | 🔄 `DEVAM.md` | ❌ | "Şu an" durumu; her `/devir`'de baştan yazılır (≤60 satır) |
 | 🔗 `CLAUDE.md` | ❌ | Claude'a `AGENTS.md`, `PLAN.md`, `DEVAM.md`'yi yükletir |
 | 🩺 `.ai/durum.ps1` | ✅ | Oturum başında devir notunun güncelliğini denetler |

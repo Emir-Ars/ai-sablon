@@ -78,8 +78,12 @@ sonra `kur.ps1`'i yeniden çalıştırmasını kullanıcıdan iste.
   Dosya adları projenin `AGENTS.md`'sindeki Belge haritasından okunur.
 - Oturum başında durum çıktısında `UYARI` satırı varsa **ilk cevabında kullanıcıya
   söyle**. Bu çıktıyı kullanıcı görmez, sen söylemezsen bilmez.
-- Sonunda ya da araç değişmeden önce: Devir notunu baştan yaz. Günlük'e yalnız bu
-  oturumda bir adım ya da karar bittiyse kısa kayıt ekle; her oturumda değil.
+- Adım bitince Günlük'e kayıt ekle ve commit önerisindeki dosyalara kat. Adımda gerçek
+  bir sorun olduysa "Sorun → çözüm" satırı yaz (hata mesajı birebir; aranabilsin),
+  bir yoldan vazgeçildiyse "Vazgeçilen" satırı. Sorunsuz adımda bu satırları yazma.
+- Bir hata ya da tuhaflıkla karşılaşınca çözmeye başlamadan önce Günlük'te hata
+  mesajını ara; daha önce çözüldüyse oradan devam et.
+- Sonunda ya da araç değişmeden önce: Devir notunu baştan yaz.
 - Kısayollar: `/basla`, `/devir`, `/karar`, `/yeni-proje`. Codex'te `$basla`,
   `$devir`, `$karar`, `$yeni-proje`.
 - İki araç aynı anda çalıştırılmaz. Araca dönünce yeni sohbet açılır.
@@ -93,11 +97,11 @@ cümleyle söyle. Roller ve dosya adları projenin Belge haritasındadır.
 | Ne olduğunda | Hangi belge |
 |---|---|
 | Kullanıcı karar verdi | Kararlar'a yeni kayıt; Plan'daki açık karar kapatılır |
-| Plan adımı bitti | Plan'ın durum tabloları; README'deki sayılar |
+| Plan adımı bitti | Plan'ın durum tabloları; Günlük'e kayıt; README'deki sayılar |
 | Kodun davranışı, komutu veya kuralı değişti | Teknik belge; gerekirse README |
 | Yeni sınır veya hata görüldü | Plan'ın "Bilinen sınırlar" bölümü |
 | Kalıcı proje kuralı söylendi | Projenin `AGENTS.md`'si |
-| Oturum bitiyor ya da araç değişecek | Devir notu; adım ya da karar bittiyse Günlük |
+| Oturum bitiyor ya da araç değişecek | Devir notu; kaydı eksik kalan biten adım ya da karar varsa Günlük |
 
 - Belgeler baştan yazılmaz: yeni bilgi ilgili yere eklenir, eskiyle çelişirse eskisi
   düzeltilir. Tek istisna Devir notudur; o her seferinde baştan yazılır.

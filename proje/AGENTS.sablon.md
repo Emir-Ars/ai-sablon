@@ -16,7 +16,7 @@ tabloyu da güncelle.
 | Kurallar | `AGENTS.md` | Git | Bu dosya; projeye özel kalıcı kurallar. |
 | Plan | `PLAN.md` | Git | Amaç, aşamalar, şu anki adımlar, açık kararlar, bilinen sınırlar. Kısa tutulur. |
 | Kararlar | `KARARLAR.md` | Git | Kararların gerekçeli kaydı; yalnız eklenir. |
-| Günlük | `GUNLUK.md` | Git | Biten adım ve kararların kısa kaydı; en yeni sonda. Her oturumda değil. |
+| Günlük | `GUNLUK.md` | Git | Biten adım ve kararların kaydı, adımda çıkan sorun ve çözümleri; adım bitince yazılır, en yeni sonda. |
 | Devir notu | `DEVAM.md` | Git dışı | "Şu an" durumu; her seferinde baştan yazılır. |
 | Teknik belge | `docs/teknik.md` | Git | Kodun işleyişi. Yoksa kendiliğinden oluşturma; gerekirse kullanıcıya sor. |
 | Araştırma | `docs/arastirma/` | Git | `genel/`: projenin başındaki araştırma; `asama-N/`: N. ana başlık için araştırma. Ayrıntı: "Planlama ve araştırma". |
@@ -74,7 +74,9 @@ adımı atlarsan ya da farklı yol izlersen bunu gerekçesiyle tek satırda söy
 3. **Her ana başlığın başında** (ör. "2. başlığı planla"): varsayımları güncelle
    (doğrulandı / çürüdü), "Sürprizler"i oku, `genel/` ve `asama-2/` klasörlerini oku
    (başka aşamanın araştırmasını okuma), başlığı adımlara böl (2.1, 2.2…), etkilenen
-   sonraki başlıkları söyle. Onaylanınca `PLAN.md` adım tablosuna yaz.
+   sonraki başlıkları söyle. Önceki başlığın `GUNLUK.md` kayıtlarındaki sorunlara bak;
+   tekrar eden ya da kalıcı bir ders varsa bu dosyaya kural olarak eklemeyi öner.
+   Onaylanınca `PLAN.md` adım tablosuna yaz.
 
 **Değişiklik**
 - Uygulama plandan sapıyorsa dur, sessizce doğaçlama yapma: `PLAN.md` değişikliğini ve

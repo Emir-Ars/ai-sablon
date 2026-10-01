@@ -1,6 +1,6 @@
 ---
 name: devir
-description: "Oturumu kapatmadan ya da araç değiştirmeden önce devir notunu baştan yazar ve günlüğe kısa kayıt ekler. 'devir', 'devir notunu güncelle', 'oturumu bitir', 'araç değiştireceğim', 'limit doluyor' denince kullan. Kısayol: /devir ($devir). Commit yapmaz."
+description: "Oturumu kapatmadan ya da araç değiştirmeden önce devir notunu baştan yazar ve eksik günlük kaydını tamamlar. 'devir', 'devir notunu güncelle', 'oturumu bitir', 'araç değiştireceğim', 'limit doluyor' denince kullan. Kısayol: /devir ($devir). Commit yapmaz."
 metadata:
   kaynak: "ai-sablon"
   surum: "__SABLON_SURUM__"
@@ -38,10 +38,11 @@ sonrası yazı) boş olabilir; varsa devir notuna eklenecek bir uyarıdır.
    Kararlar'a, kalıcı bilgiyi Plan'a taşıyarak kısalt. Haritada bu belgeler yoksa
    (eski düzen) kısaltma; "devir notu N satır, sınırı aşıyor" diye söyle ve ne
    yapılacağını sor.
-7. **Günlük.** Haritada Günlük varsa ve bu oturumda bir adım ya da karar bittiyse
-   sonuna 3-5 satırlık kayıt ekle. Günlük'ün kendi kayıt biçimini kullan; saat adım
-   4'ten; araç adı olarak model adını değil "Claude Code" ya da "Codex" yaz. Bitmiş iş
-   yoksa ya da haritada Günlük yoksa bu adımı atla.
+7. **Günlük.** Kayıt normalde adım bitince yazılmıştır; tekrar yazma. Bu oturumda
+   biten bir adım ya da karar için Günlük'te kayıt yoksa sonuna ekle. Günlük'ün kendi
+   kayıt biçimini kullan (sorun ya da vazgeçilen yol olduysa o satırlarla); saat adım
+   4'ten; araç adı olarak model adını değil "Claude Code" ya da "Codex" yaz. Eksik
+   kayıt yoksa ya da haritada Günlük yoksa bu adımı atla.
 8. **Rapor ver.** Hangi belgeler güncellendi, Devir notunun yeni "Son güncelleme"
    saati, commit edilmemiş dosyaların listesi. Kullanıcıya şunu söyle: yeni araçta
    yeni sohbet aç ve `/basla` (Codex'te `$basla`) yaz.
@@ -50,7 +51,7 @@ sonrası yazı) boş olabilir; varsa devir notuna eklenecek bir uyarıdır.
 
 - Devir notu baştan yazıldı, "Son güncelleme" saati adım 4'ten.
 - Not 60 satırı aşmıyor ya da aşıyorsa kullanıcıya söylendi.
-- Günlük'e kayıt eklendi (haritada varsa).
+- Biten her adımın ve kararın Günlük'te kaydı var (haritada varsa).
 - Güncellenen belgeler raporda listelendi.
 
 ## Yapma
